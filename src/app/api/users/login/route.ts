@@ -1,6 +1,6 @@
 import {connect} from "@/dbconfig/dbconfig"
 import User from "@/models/userModel"
-import { NextRequest,NextResponse} from "next/server"
+import { NextRequest,NextResponse, userAgent} from "next/server"
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken';
 
@@ -15,6 +15,7 @@ export async function POST(request:NextRequest){
         if(!user){
             return NextResponse.json({error:"User does not  exists"},{status:400})
         }
+        console.log("user data,",user)
         const validpassword=await bcryptjs.compare(password,user.password)
 
         if(!validpassword){
@@ -31,11 +32,15 @@ export async function POST(request:NextRequest){
         const response =NextResponse.json({
             message:"Login Successful",
             success:true,
-        })
+            data:user
+            
+           
+        },user)
 
         response.cookies.set("token",token,{
             httpOnly:true,
         })
+        console.log("this is the response from router.ys",response)
         return response;
 
 

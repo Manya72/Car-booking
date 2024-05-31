@@ -61,7 +61,7 @@ export default function Signup() {
     }
   }, [signupSuccess, router]);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-14">
+    <main >
       <Navbar />
       <div className='flex items-center justify-center mt-28'>
         <div className='w-96 border rounded bg-white px-7 py-20'>
@@ -107,7 +107,7 @@ export default function Signup() {
               />
             </div>
             <div className="flex justify-center mt-5">
-              <button type='button' onClick={onSignup}  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+              <button type='button' onClick={onSignup}  className='bg-indigo-600 hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded'>
                 {buttonDisabled?"No signup" : "Signup"}
               </button>
             </div>

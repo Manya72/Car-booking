@@ -1,9 +1,10 @@
 import Navbar from './components/Navbar/Navbar';
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-       <Navbar/>
-     <div className="container">
+    <main >
+      
+     <div >
+     <Navbar/>
       <h1>Welcome to [Car Wash Name]!</h1>
       <p>
         This is Car - wash boking System.

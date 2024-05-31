@@ -1,62 +1,72 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar/Navbar';
+import NavbarUser from '../components/Navbar/NavbarUser';
 import moment from 'moment';
+import axios from 'axios'
 
+interface User {
+  carType: string;
+  date: string;
+  carShopOwner:String;
+  time:String;
+ 
+}
 export default function Dashboard() {
 
-  const mockBookingHistory = [
-    {
-      _id: '1',
-      carType: 'SUV',
-      carShopOwner: 'Manya',
-      date: '2024-05-30',
-      time: '10:00 AM',
-      timeRequired: '1 hour'
-    },
-    {
-      _id: '2',
-      carType: 'Sedan',
-      carShopOwner: 'Hemang',
-      date: '2024-05-31',
-      time: '11:00 AM',
-      timeRequired: '45 minutes'
-    }
-    ,
-    {
-      _id: '2',
-      carType: 'Sedan',
-      carShopOwner: 'Soban',
-      date: '2024-05-31',
-      time: '11:00 AM',
-      timeRequired: '45 minutes'
-    }
-    // Add more mock data as needed
-  ];
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  
 
-  const [bookingHistory, setBookingHistory] = useState(mockBookingHistory);
-  const [loading, setLoading] = useState(false);
+
+  
+  useEffect(() => {
+    console.log("heyy")
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/users/fetchHistory');
+        const fetchedUsers = response.data;
+        setUsers(fetchedUsers);
+        setLoading(false);
+      
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+    fetchData();
+    
+  }
+  , []);
+
+  if (loading) {
+    console.log("heyy")
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navbar />
-      <div className="container mx-auto py-32">
-        <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">Your Carwash Service Booking History</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {bookingHistory.map((booking) => (
-            <div key={booking._id} className="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 hover:shadow-2xl transition-shadow duration-300">
-              <div className="p-6">
-                <p className="text-lg font-semibold mb-2 text-gray-700"><span className="font-bold text-gray-900">Car Type:</span> {booking.carType}</p>
-                <p className="text-lg font-semibold mb-2 text-gray-700"><span className="font-bold text-gray-900">Car Shop Owner:</span> {booking.carShopOwner}</p>
-                <p className="text-lg font-semibold mb-2 text-gray-700"><span className="font-bold text-gray-900">Date:</span> {moment(booking.date).format('MMM D, YYYY')}</p>
-                <p className="text-lg font-semibold mb-2 text-gray-700"><span className="font-bold text-gray-900">Time:</span> {booking.time}</p>
-                <p className="text-lg font-semibold mb-2 text-gray-700"><span className="font-bold text-gray-900">Time Required:</span> {booking.timeRequired}</p>
-              </div>
+    <main>
+<NavbarUser/>
+  
+    <div className="container mx-auto px-4 py-8">
+    <h1 className="text-2xl font-bold mb-4 text-center">User Dashboard</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {users.length > 0 ? (
+          users.map((user, index) => (
+            <div key={index} className="bg-white p-1 rounded-md shadow-md">
+              <p >CarType: {user.carType}</p>
+              <p>Service Date: {moment(user.date).format('MMMM Do YYYY')}</p>
+              <p>Time: {user.time}</p>
+              <p>Car Shop Owner: {user.carShopOwner}</p>
+              {/* Add more user information as needed */}
             </div>
-          ))}
-        </div>
+          ))
+        ) : (
+          <p>No user data available</p>
+        )}
       </div>
     </div>
+    </main>
   );
 }
 
