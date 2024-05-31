@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation"; 
-// import { useRouter } from 'next/router'
+
 
 import axios from 'axios'; 
 import toast from 'react-hot-toast';
@@ -22,20 +22,25 @@ export default function Signup() {
   
   const[buttonDisabled,setButtonDisabled]=React.useState(false)
   const[loading,setloading]=React.useState(false)
-  const [signupSuccess, setSignupSuccess] = React.useState(false);
+  const [signupSuccess, setSignupSuccess] = React.useState(false);  
+  const [signupFail, setSignupFail] = React.useState(false);
   const onSignup = async () => {
     
     try {
-    
-                                                                                                                          
+                                                                                                               
       const response=await axios.post('/api/users/signup',user)
+      if(response.data.message=="User already exists"){
+        console.log("this is the errorr")
+        setSignupFail(true)
+        return 
 
-      console.log(response)
+      }
+  
       setSignupSuccess(true)
     } 
-    catch (error:any) {
+    catch (error) {
       console.log("signup failed")
-      toast.error(error.message)
+      
     }   
    
 
@@ -60,6 +65,12 @@ export default function Signup() {
       router.push("/login"); 
     }
   }, [signupSuccess, router]);
+  useEffect(() => {
+    if (signupSuccess) {
+      console.log("heyy")
+      
+    }
+  }, [signupFail, router]);
   return (
     <main >
       <Navbar />
@@ -116,6 +127,9 @@ export default function Signup() {
               <Link href="/login"
                className='font-medium text-primary underline'>Login
               </Link>
+            </p>
+            <p>
+              {signupFail?'User Already exists':''}
             </p>
           </form>
         </div>

@@ -3,7 +3,7 @@ import { connect } from '@/dbconfig/dbconfig';
 import History from '@/models/ServiceHistory';
 connect()
 console.log("from fetch")
-export  async function GET(response:NextResponse) {
+export  async function GET(response:NextResponse) { //for the user dashboard
   try {
     const userHistory=await History.find()
     return NextResponse.json(userHistory)

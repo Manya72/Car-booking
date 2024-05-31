@@ -3,14 +3,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
-function ownerNavbar() {
+import axios from 'axios';
+function NavbarOwner() {
   const router=useRouter()
-  const [navbar, setNavbar] = useState(false);
-  const handlelogout = () => {
-    setTimeout(() => {
-      router.push("/");
-    }, 1000); // 2-second delay before redirecting to home
+
+  
+  const handlelogout = async () => {
+	try {
+		await axios.get('/api/users/logout')
+		setTimeout(() => {
+			router.push("/");
+		  }, 1000);
+		
+	} catch (error) {
+		
+	}
   };
   return (
     
@@ -30,10 +37,10 @@ function ownerNavbar() {
 			<ul class="flex font-semibold justify-between">
                
 				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/shopownerdashboard">Dashboard</Link></li>
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/bookslot">Book A Slot</Link></li>
+				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/addslot"> Add Slot</Link></li>
 				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/profile">Profile</Link></li>
 
-				{/* <li class="md:px-4 md:py-2 hover:text-indigo-400"> <Link href="/" onClick={() => setNavbar(!navbar)}>Logout</Link></li> */}
+				
 			</ul>
 		</div>
 		<div class="order-2 md:order-3">
@@ -51,4 +58,4 @@ function ownerNavbar() {
   );
 }
 
-export default ownerNavbar;
+export default NavbarOwner;

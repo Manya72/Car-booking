@@ -25,7 +25,7 @@ export async function POST(request:NextRequest){
         const tokendata={
             id:user._id,
             username:user.username,
-            email:user.username,
+            email:user.email,
         }
         const token=await jwt.sign(tokendata,process.env.TOKEN_SECRET!,{expiresIn:"30d"})
 
@@ -49,4 +49,10 @@ export async function POST(request:NextRequest){
         return NextResponse.json({error:error.message},{status:500})
         
     }
-}
+} 
+
+// 
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ZGQ4MzRmMmM2NzJmODUxZTUz
+//MiIsInVzZXJuYW1lIjoibWFueWEiLCJlbWFpbCI6Im1hbnlhIiwiaWF0IjoxNzE3MTM2MDE2LCJleHAiOjE3MT
+//k3MjgwMTZ9.hIb0yYU6e34H6Wkr_GRKI1O7INQOfS2M1IaFbg0EuBw
+// 

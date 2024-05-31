@@ -12,7 +12,8 @@ export async function POST(request:NextRequest){
         console.log("this is usertype",userType)
         const user =await User.findOne({email})
         if(user){
-            return NextResponse.json({error:"User already exists"},{status:400})
+            console.log("this is response for validating")
+            return NextResponse.json({message:"User already exists"})
         }
         //hash password
         const salt=await bcryptjs.genSalt(10)
@@ -37,3 +38,4 @@ export async function POST(request:NextRequest){
 
     }
 }
+

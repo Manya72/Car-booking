@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import NavbarUser from '../components/Navbar/NavbarOwner';
+import NavbarOwner from '../components/Navbar/NavbarOwner';
 import moment from 'moment';
 import axios from 'axios'
 
@@ -11,7 +11,7 @@ export default function ownerdashboard() {
 
   return (
     <main>
-<NavbarUser/>
+<NavbarOwner/>
     <br></br>
     <br></br>
     <div className="container mx-auto px-4 py-8">
