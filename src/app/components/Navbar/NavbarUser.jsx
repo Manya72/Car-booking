@@ -3,14 +3,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
+import axios from 'axios';
 function ownerNavbar() {
   const router=useRouter()
   const [navbar, setNavbar] = useState(false);
-  const handlelogout = () => {
-    setTimeout(() => {
-      router.push("/");
-    }, 1000); // 2-second delay before redirecting to home
+  const handlelogout = async () => {
+	try {
+	
+		await axios.get('/api/users/logout')
+		
+	
+		setTimeout(() => {
+			router.push("/");
+		  }, 1000);
+		
+	} catch (error) {
+		
+	}
   };
   return (
     
@@ -29,7 +38,7 @@ function ownerNavbar() {
 		<div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
 			<ul class="flex font-semibold justify-between">
                
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/shopownerdashboard">Dashboard</Link></li>
+				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/dashboard">Dashboard</Link></li>
 				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/bookslot">Book A Slot</Link></li>
 				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/profile">Profile</Link></li>
 

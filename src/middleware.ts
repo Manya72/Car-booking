@@ -8,8 +8,8 @@ export async function middleware(request: NextRequest) {
     const ownerpaths=path==='/addslot' || path==='/bookslot'
     
     const token=request.cookies.get('token')?.value|| ''
-  console.log("this is token")
-  console.log(isPublicPath)
+
+  // console.log(isPublicPath)
     if(isPublicPath && token){
         return NextResponse.redirect(new URL('/dashboard',request.nextUrl))
     }
@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/login',request.nextUrl))
     }
     
-       console.log( request.cookies.get('token')?.value)
+      //  console.log( request.cookies.get('token')?.value)
       
 
     // }

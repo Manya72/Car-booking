@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 const userSchema =new mongoose.Schema({
-    carType:{
+    UserName:{
         type:String,
         required:true,
         
     },
-    carShopOwner:{
+    carShopOwner:{                                                                                                                          
         type:String,
         required:true,
      
@@ -14,9 +14,20 @@ const userSchema =new mongoose.Schema({
         type:String,
         required:true
     },
-    time:{
+    startTime:{
         type:String,
         required:true
+    },
+    endTime:
+    {
+        type:String,
+        required:true
+    },
+    location:{
+        type:String,
+        required:true
+
+
     }
 
 

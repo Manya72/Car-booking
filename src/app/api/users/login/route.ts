@@ -15,7 +15,7 @@ export async function POST(request:NextRequest){
         if(!user){
             return NextResponse.json({error:"User does not  exists"},{status:400})
         }
-        console.log("user data,",user)
+       
         const validpassword=await bcryptjs.compare(password,user.password)
 
         if(!validpassword){
@@ -50,9 +50,3 @@ export async function POST(request:NextRequest){
         
     }
 } 
-
-// 
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg3ZGQ4MzRmMmM2NzJmODUxZTUz
-//MiIsInVzZXJuYW1lIjoibWFueWEiLCJlbWFpbCI6Im1hbnlhIiwiaWF0IjoxNzE3MTM2MDE2LCJleHAiOjE3MT
-//k3MjgwMTZ9.hIb0yYU6e34H6Wkr_GRKI1O7INQOfS2M1IaFbg0EuBw
-// 
