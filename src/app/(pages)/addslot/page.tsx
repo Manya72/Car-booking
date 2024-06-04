@@ -1,6 +1,6 @@
 'use client'
 import axios from "axios";
-import NavbarUser from "../components/Navbar/NavbarOwner";
+import NavbarUser from "../../components/Navbar/NavbarOwner";
 import { useState } from "react";
 
 export default function ManageTimings() {

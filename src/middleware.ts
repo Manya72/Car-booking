@@ -1,13 +1,18 @@
+
 import { NextResponse,NextRequest } from 'next/server'
 
- import axios from 'axios';
 export async function middleware(request: NextRequest) {
+  
     const path=request.nextUrl.pathname
     const isPublicPath=path==='/login' || path=== '/signup'
     const userpaths=path==='/dashboard' || path==='/shopownerdashboard' 
     const ownerpaths=path==='/addslot' || path==='/bookslot'
-    
+    const home=path==='/'
     const token=request.cookies.get('token')?.value|| ''
+
+  if(home){
+    return
+  }
 
   // console.log(isPublicPath)
     if(isPublicPath && token){
@@ -32,6 +37,9 @@ export const config = {
     '/login',
     '/signup',
     '/dashboard',
-    '/shopownerdashboard'
+    '/shopownerdashboard',
+    '/bookslot',
+    '/addslot',
+    '/profile'
   ]
 }

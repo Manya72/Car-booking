@@ -1,5 +1,5 @@
 'use client'
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation"; 
@@ -24,8 +24,13 @@ export default function Signup() {
   const[loading,setloading]=React.useState(false)
   const [signupSuccess, setSignupSuccess] = React.useState(false);  
   const [signupFail, setSignupFail] = React.useState(false);
+  const[errorMessage,setErrorMessage]=useState("")
   const onSignup = async () => {
-    
+    const { email, password, username, userType } = user;
+    if (!email || !password || !username || !userType) {
+        setErrorMessage("All fields are mandatory!!");
+        return;
+    }
     try {
                                                                                                                
       const response=await axios.post('/api/users/signup',user)
@@ -118,10 +123,15 @@ export default function Signup() {
               />
             </div>
             <div className="flex justify-center mt-5">
-              <button type='button' onClick={onSignup}  className='bg-indigo-600 hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded'>
+              <button type='button' onClick={onSignup}   className={`bg-indigo-600 hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded ${buttonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                 {buttonDisabled?"No signup" : "Signup"}
               </button>
             </div>
+            {errorMessage && (
+                        <div className="mb-4 text-red-600 font-semibold">
+                            {errorMessage}
+                        </div>
+                    )}
             <p className='text-sm text-center mt-4'>
               Already Registered ?
               <Link href="/login"

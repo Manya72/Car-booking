@@ -1,7 +1,7 @@
 'use client'
 import axios from "axios";
 import { useState, useEffect } from "react";
-import NavbarUser from "../components/Navbar/NavbarUser";
+import NavbarUser from '../../components/Navbar/NavBarUser';
 
 interface Availability {
     startTime: string;

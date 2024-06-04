@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import NavbarOwner from '../components/Navbar/NavbarOwner';
+import NavbarOwner from '../../components/Navbar/NavbarOwner';
 import moment from 'moment';
 import axios from 'axios'
 

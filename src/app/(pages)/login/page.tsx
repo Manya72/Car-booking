@@ -1,21 +1,27 @@
 'use client';
 
-import Navbar from '../components/Navbar/Navbar';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Navbar from '@/app/components/Navbar/Navbar';
 
 export default function Login() {
   const router = useRouter();
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = useState(false);
+  const[errorMessage,setErrorMessage]=useState("")
   const [user, setUser] = React.useState({
     email: "",
     password: ""
   });
 
   const onlogin = async () => {
+    const { email, password } = user;
+    if (!email || !password ) {
+        setErrorMessage("All fields are mandatory!!");
+        return;
+    }
     setLoading(true);
     try {
       const response = await axios.post("/api/users/login", user);
@@ -85,6 +91,11 @@ export default function Login() {
                 {loading ? 'Logging in...' : 'Login'}
               </button>
             </div>
+            {errorMessage && (
+                        <div className="mb-4 text-red-600 font-semibold">
+                            {errorMessage}
+                        </div>
+                    )}
           </form>
           <p className="text-sm text-center mt-4">
             Not Registered?{" "}
