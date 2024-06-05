@@ -2,19 +2,26 @@ import {connect} from "@/dbconfig/dbconfig"
 import User from "@/models/userModel"
 import { NextRequest,NextResponse} from "next/server"
 import bcryptjs from 'bcryptjs'
+import { registerSchema } from "@/validator/authSchema";
+import vine, { errors } from "@vinejs/vine";
+import ErrorReporter from "@/validator/ErrorReporter";
 connect()
 
 export async function POST(request:NextRequest){
     try{
         const reqBody=await request.json()
         console.log("this is reqbody",reqBody)
+     
         const {email,password,username,userType}=reqBody
         console.log("this is usertype",userType)
         const user =await User.findOne({email})
         if(user){
             console.log("this is response for validating")
-            return NextResponse.json({message:"User already exists"})
+            return NextResponse.json({message:"User already exists",status:400})
         }
+        vine.errorReporter = () => new ErrorReporter();
+        const validator = vine.compile(registerSchema);
+        const output = await validator.validate(reqBody);
         //hash password
         const salt=await bcryptjs.genSalt(10)
         const hashPassword=await bcryptjs.hash(password,salt)
@@ -31,11 +38,11 @@ export async function POST(request:NextRequest){
 
 
     }
-    catch (error:any){
-        console.log("Error occured111:",error)
-        return NextResponse.json({error:error.message},{status:500})
-       
-
-    }
-}
-
+    catch (error) {
+        if (error instanceof errors.E_VALIDATION_ERROR) {
+          return NextResponse.json(
+            { status: 400, errors: error.messages },
+            
+          );
+        }
+}}

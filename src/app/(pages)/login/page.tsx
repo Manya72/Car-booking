@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Navbar from '@/app/components/Navbar/Navbar';
-
+import { signIn } from 'next-auth/react';
 export default function Login() {
   const router = useRouter();
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
@@ -25,10 +25,22 @@ export default function Login() {
     setLoading(true);
     try {
       const response = await axios.post("/api/users/login", user);
+      
+      if(response.data.status==400){
+        setErrorMessage("password incorrect")
+        return
+      }
+      // if(response.data.status==200){
+      //   console.log("hey from the signin")
+      //   signIn("credentials",{
+      //     email:user.email,
+      //     password:user.password
+      //   })
+      // }
       console.log("Login successful, response data:", response.data);
       setTimeout(() => {
         handleResponseData(response);
-      }, 500); // 2-second delay before redirecting
+      }, 500); 
     } catch (error) {
       console.log("error", error);
     } finally {

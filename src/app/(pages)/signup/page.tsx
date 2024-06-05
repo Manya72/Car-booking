@@ -18,6 +18,7 @@ export default function Signup() {
     password: "",
     username: "",
     userType: 'user',
+    password_confirmation: "",
   });
   
   const[buttonDisabled,setButtonDisabled]=React.useState(false)
@@ -25,7 +26,12 @@ export default function Signup() {
   const [signupSuccess, setSignupSuccess] = React.useState(false);  
   const [signupFail, setSignupFail] = React.useState(false);
   const[errorMessage,setErrorMessage]=useState("")
+
   const onSignup = async () => {
+    if(user.password!=user.password_confirmation){
+      setErrorMessage("Passwords dont match")
+      return 
+    }
     const { email, password, username, userType } = user;
     if (!email || !password || !username || !userType) {
         setErrorMessage("All fields are mandatory!!");
@@ -34,12 +40,22 @@ export default function Signup() {
     try {
                                                                                                                
       const response=await axios.post('/api/users/signup',user)
-      if(response.data.message=="User already exists"){
-        console.log("this is the errorr")
+     console.log("this is it",response.data.errors)
+
+      if(response.data.status==400){
+        if(response.data.message!=null){
+          setErrorMessage(response.data.message)
+        }
+       else{
+        setErrorMessage(response.data.errors?.username || response.data.errors?.password
+           || response.data.errors?.email)
+       }
+        
         setSignupFail(true)
         return 
 
       }
+      
   
       setSignupSuccess(true)
     } 
@@ -66,7 +82,7 @@ export default function Signup() {
  
   useEffect(() => {
     if (signupSuccess) {
-      console.log("heyy")
+  
       router.push("/login"); 
     }
   }, [signupSuccess, router]);
@@ -122,25 +138,30 @@ export default function Signup() {
                 onChange={(e) => setuser({ ...user, password: e.target.value })} autoComplete="new-password"
               />
             </div>
+            <div className="mb-4">
+              <label htmlFor='password'>Confirm Password</label>
+              <input id='confirmpassword' type='password' placeholder='Password' className='p-0.5 border border-gray-300 rounded-md placeholder-gray-500 text-base w-full'
+               value={user.password_confirmation}
+               onChange={(e) => setuser({ ...user, password_confirmation: e.target.value })} autoComplete="new-password"
+              />
+            </div>
             <div className="flex justify-center mt-5">
               <button type='button' onClick={onSignup}   className={`bg-indigo-600 hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded ${buttonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                 {buttonDisabled?"No signup" : "Signup"}
               </button>
             </div>
-            {errorMessage && (
-                        <div className="mb-4 text-red-600 font-semibold">
-                            {errorMessage}
-                        </div>
-                    )}
+          
             <p className='text-sm text-center mt-4'>
               Already Registered ?
               <Link href="/login"
                className='font-medium text-primary underline'>Login
               </Link>
             </p>
-            <p>
-              {signupFail?'User Already exists':''}
-            </p>
+            {errorMessage && (
+                        <div className="mb-4 text-red-600 font-semibold">
+                            {errorMessage}
+                        </div>
+                    )}
           </form>
         </div>
       </div>

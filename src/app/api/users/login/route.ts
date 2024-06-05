@@ -3,7 +3,9 @@ import User from "@/models/userModel"
 import { NextRequest,NextResponse, userAgent} from "next/server"
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken';
-
+import { loginSchema } from "@/validator/authSchema";
+import vine, { errors } from "@vinejs/vine";
+import ErrorReporter from "@/validator/ErrorReporter";
 connect()
 
 export async function POST(request:NextRequest){
@@ -13,14 +15,15 @@ export async function POST(request:NextRequest){
         const {email,password}=reqBody
         const user =await User.findOne({email})
         if(!user){
-            return NextResponse.json({error:"User does not  exists"},{status:400})
+            return NextResponse.json({error:"User does not  exists",status:400})
+        }
+        
+        const validpassword=await bcryptjs.compare(password,user.password)
+        
+        if(!validpassword){
+            return NextResponse.json({error:"Invalid password",status:400})
         }
        
-        const validpassword=await bcryptjs.compare(password,user.password)
-
-        if(!validpassword){
-            return NextResponse.json({error:"Invalid password"},{status:400})
-        }
 
         const tokendata={
             id:user._id,
@@ -32,7 +35,8 @@ export async function POST(request:NextRequest){
         const response =NextResponse.json({
             message:"Login Successful",
             success:true,
-            data:user
+            data:user,
+            status:200
             
            
         },user)
@@ -46,7 +50,7 @@ export async function POST(request:NextRequest){
 
     } catch (error:any) {
         console.log("Error occured111:",error)
-        return NextResponse.json({error:error.message},{status:500})
+        return NextResponse.json({ status: 400,error:error.message})
         
     }
 } 
