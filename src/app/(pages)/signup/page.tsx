@@ -29,7 +29,7 @@ export default function Signup() {
 
   const onSignup = async () => {
     if(user.password!=user.password_confirmation){
-      setErrorMessage("Passwords dont match")
+      setErrorMessage("Passwords do not match")
       return 
     }
     const { email, password, username, userType } = user;
@@ -145,6 +145,11 @@ export default function Signup() {
                onChange={(e) => setuser({ ...user, password_confirmation: e.target.value })} autoComplete="new-password"
               />
             </div>
+            {errorMessage && (
+                        <div className="mb-4 text-red-600 font-semibold">
+                            {errorMessage}
+                        </div>
+                    )}
             <div className="flex justify-center mt-5">
               <button type='button' onClick={onSignup}   className={`bg-indigo-600 hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded ${buttonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                 {buttonDisabled?"No signup" : "Signup"}
@@ -157,11 +162,7 @@ export default function Signup() {
                className='font-medium text-primary underline'>Login
               </Link>
             </p>
-            {errorMessage && (
-                        <div className="mb-4 text-red-600 font-semibold">
-                            {errorMessage}
-                        </div>
-                    )}
+            
           </form>
         </div>
       </div>

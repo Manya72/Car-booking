@@ -27,7 +27,7 @@ export default function Login() {
       const response = await axios.post("/api/users/login", user);
       
       if(response.data.status==400){
-        setErrorMessage("password incorrect")
+        setErrorMessage("Invalid Password.")
         return
       }
       // if(response.data.status==200){
@@ -93,6 +93,11 @@ export default function Login() {
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
             </div>
+            {errorMessage && (
+                        <div className="mb-4 text-red-600 font-semibold">
+                            {errorMessage}
+                        </div>
+                    )}
             <div className="flex justify-center mt-5">
               <button
                 type="button"
@@ -103,11 +108,7 @@ export default function Login() {
                 {loading ? 'Logging in...' : 'Login'}
               </button>
             </div>
-            {errorMessage && (
-                        <div className="mb-4 text-red-600 font-semibold">
-                            {errorMessage}
-                        </div>
-                    )}
+            
           </form>
           <p className="text-sm text-center mt-4">
             Not Registered?{" "}

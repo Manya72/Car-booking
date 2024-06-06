@@ -3,10 +3,10 @@ import React from 'react';
 import Navbar from './components/Navbar/Navbar';
 import Image from 'next/image';
 import { AuthOptions, getServerSession } from 'next-auth';
-import { authoptions } from './api/auth/[...nextauth]/options';
+
 export default async function Home() {
-  const session= await getServerSession(authoptions)
-  console.log("from home page",session)
+
+
   return (
     <main className="bg-cover bg-center min-h-screen" 
     >

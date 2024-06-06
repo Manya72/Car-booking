@@ -32,15 +32,20 @@ export  async function POST(request:NextRequest,response:NextResponse) {
     
   }
 }
-export  async function GET(response:NextResponse) { //for the services details 
+export async function GET(response: NextResponse) {
   try {
-    const Services=await Service.find()
-    return NextResponse.json(Services)
+    // Get current date
+    const currentDate = new Date();
+    console.log("current date^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",currentDate)
+    // Find services that have a date greater than or equal to the current date
+    const services = await Service.find({ date: { $lte: currentDate } });
+    // Return the filtered services
+    return NextResponse.json(services);
   } catch (error) {
-    return NextResponse.json({message:error})
-    
+    return NextResponse.json({ message: error });
   }
 }
+
  
 
 export async function PATCH(request:NextRequest,response:NextResponse){

@@ -14,6 +14,7 @@ function ownerNavbar() {
 		
 	
 		setTimeout(() => {
+	
 			router.push("/");
 		  }, 1000);
 		
@@ -40,8 +41,7 @@ function ownerNavbar() {
 
 
 
-			/
-			Q/
+		
 		</div>
 		<div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
 			<ul class="flex font-semibold justify-between">
