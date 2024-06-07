@@ -1,46 +1,38 @@
 'use client';
-
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'; // Correct import statement
 import axios from 'axios';
 import Navbar from '@/app/components/Navbar/Navbar';
 import { signIn } from 'next-auth/react';
+
 export default function Login() {
   const router = useRouter();
-  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false); // Changed React.useState to useState
   const [loading, setLoading] = useState(false);
-  const[errorMessage,setErrorMessage]=useState("")
-  const [user, setUser] = React.useState({
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
+  const [user, setUser] = useState({
     email: "",
     password: ""
   });
 
   const onlogin = async () => {
     const { email, password } = user;
-    if (!email || !password ) {
-        setErrorMessage("All fields are mandatory!!");
-        return;
+    if (!email || !password) {
+      setErrorMessage("All fields are mandatory!!");
+      return;
     }
     setLoading(true);
     try {
       const response = await axios.post("/api/users/login", user);
-      
-      if(response.data.status==400){
-        setErrorMessage("Invalid Password.")
-        return
+      console.log("response fromPOST login",response)
+      if (response.data.status === 400) {
+        setErrorMessage("Incorrect login credentials i.e. userHandle/email or password!");
+        return;
       }
-      // if(response.data.status==200){
-      //   console.log("hey from the signin")
-      //   signIn("credentials",{
-      //     email:user.email,
-      //     password:user.password
-      //   })
-      // }
-      console.log("Login successful, response data:", response.data);
       setTimeout(() => {
         handleResponseData(response);
-      }, 500); 
+      }, 500);
     } catch (error) {
       console.log("error", error);
     } finally {
@@ -57,9 +49,12 @@ export default function Login() {
   }, [user]);
 
   const handleResponseData = (data:any) => {
-    if (data.data.data.userType === "user") {
+    if(data.data.data.isAdmin===true ){
+      router.push("/adminhome")
+    }
+    else if (data.data.data.userType === "user") {
       router.push("/dashboard");
-    } else {
+    } else {                                                      
       router.push("/shopownerdashboard");
     }
   };
@@ -69,8 +64,15 @@ export default function Login() {
       <Navbar />
       <div className="flex flex-col items-center mt-28">
         <div className="w-96 border rounded bg-white px-7 py-20">
+          
           <form>
+          
             <h4 className="text-2xl mb-7">Login</h4>
+            {errorMessage && (
+        <div style={{ border: "1px solid red", padding: "5px", color: "red" }}>
+          {errorMessage}
+        </div>
+      )}
             <div className="mb-4">
               <label htmlFor="email">Email</label>
               <input
@@ -92,23 +94,25 @@ export default function Login() {
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
+              <a
+                      href="#"
+                      title=""
+                      className="text-sm font-semibold text-black hover:underline"
+                    >
+                      {' '}
+                      Forgot password?{' '}
+                    </a>
             </div>
-            {errorMessage && (
-                        <div className="mb-4 text-red-600 font-semibold">
-                            {errorMessage}
-                        </div>
-                    )}
-            <div className="flex justify-center mt-5">
+
+            <div className=" flex justify-center mt-5">
               <button
                 type="button"
                 onClick={onlogin}
-                className={`bg-indigo-600 hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded ${buttonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-                
+                className={`bg-indigo-600  w-full hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded ${buttonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {loading ? 'Logging in...' : 'Login'}
               </button>
             </div>
-            
           </form>
           <p className="text-sm text-center mt-4">
             Not Registered?{" "}

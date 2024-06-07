@@ -9,16 +9,18 @@ export async function middleware(request: NextRequest) {
   const path=request.nextUrl.pathname
   token=request.cookies.get('token')?.value|| ''
   try {
-    if(path==='/dashboard' || path==='/bookslot' ){
+    if(path==='/dashboard' || path==='/bookslot' || path==='/users' || path==='/adminhome' ||
+      path==='/bookings'){
       decodedToken = await verifyAuth(token)
       if(decodedToken.userType==='carShopOwner'){
         return NextResponse.redirect(new URL('/shopownerdashboard',request.nextUrl))
 
       }     
-            
-      console.log(decodedToken.userType)
+   
     }
-    if(path==='/shopownerdashboard' || path==='/addslot' ){
+    if(path==='/shopownerdashboard' || path==='/addslot' || path==='/users' || path==='/adminhome' ||
+      path==='/bookings'
+    ){
   
       
       decodedToken = await verifyAuth(token)
@@ -26,8 +28,20 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/dashboard',request.nextUrl))
 
       }     
-            
-      console.log(decodedToken.userType)
+  
+    }
+
+    if(path==='/shopownerdashboard' || path==='/addslot' || path==='/dashboard' || path==='/bookslot' 
+     
+    ){
+  
+      
+      decodedToken = await verifyAuth(token)
+      if(decodedToken.userType==='admin'){
+        return NextResponse.redirect(new URL('/adminhome',request.nextUrl))
+
+      }     
+  
     }
     token=request.cookies.get('token')?.value|| ''
     
@@ -52,7 +66,20 @@ if(home){
 } 
 
   if(isPublicPath && token){
+    decodedToken = await verifyAuth(token)
+    if(decodedToken.userType==='user'){
       return NextResponse.redirect(new URL('/dashboard',request.nextUrl))
+
+    }  
+    if(decodedToken.userType==='carShopOwner'){
+      return NextResponse.redirect(new URL('/dashboard',request.nextUrl))
+
+    }  
+    if(decodedToken.userType==="admin"){
+      return NextResponse.redirect(new URL('/adminhome',request.nextUrl))
+
+    }
+      return NextResponse.redirect(new URL('/shopownerdashboard',request.nextUrl))
   }
   if(!isPublicPath && !token){
       return NextResponse.redirect(new URL('/login',request.nextUrl))
@@ -69,6 +96,9 @@ matcher: [
   '/shopownerdashboard',
   '/bookslot',
   '/addslot',
-  '/profile'
+  '/profile',
+  '/adminhome',
+  '/users',
+  '/bookings'
 ]
 }

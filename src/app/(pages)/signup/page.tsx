@@ -95,7 +95,7 @@ export default function Signup() {
   return (
     <main >
       <Navbar />
-      <div className='flex items-center justify-center mt-28'>
+      <div className='flex items-center justify-center mt-28 '>
         <div className='w-96 border rounded bg-white px-7 py-20'>
           <form>
             <h4 className='text-2xl mb-7'>
@@ -151,7 +151,7 @@ export default function Signup() {
                         </div>
                     )}
             <div className="flex justify-center mt-5">
-              <button type='button' onClick={onSignup}   className={`bg-indigo-600 hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded ${buttonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
+              <button type='button' onClick={onSignup}   className={`bg-indigo-600 w-full hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded ${buttonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
                 {buttonDisabled?"No signup" : "Signup"}
               </button>
             </div>
