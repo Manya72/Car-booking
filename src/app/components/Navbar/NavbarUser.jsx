@@ -1,12 +1,18 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter,usePathname } from 'next/navigation';
 import { useState } from 'react';
 import axios from 'axios';
 function ownerNavbar() {
   const router=useRouter()
   const [navbar, setNavbar] = useState(false);
+  const pathname1 = usePathname()
+  const isActive = (pathname) => {
+	
+    return pathname1 === pathname ? 'text-indigo-700' : 'text-gray-500';
+  };
+
   const handlelogout = async () => {
 	try {
 	
@@ -46,9 +52,15 @@ function ownerNavbar() {
 		<div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
 			<ul class="flex font-semibold justify-between">
                
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/dashboard">Dashboard</Link></li>
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/bookslot">Book A Slot</Link></li>
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/profile">Profile</Link></li>
+			<li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/dashboard')}`}>
+              <Link href="/dashboard">Dashboard</Link>
+            </li>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/bookslot')}`}>
+              <Link href="/bookslot">Book A Slot</Link>
+            </li>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/profile')}`}>
+              <Link href="/profile">Profile</Link>
+            </li>
 
 				{/* <li class="md:px-4 md:py-2 hover:text-indigo-400"> <Link href="/" onClick={() => setNavbar(!navbar)}>Logout</Link></li> */}
 			</ul>

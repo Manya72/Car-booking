@@ -23,8 +23,7 @@ export  async function GET(request:NextRequest,response:NextResponse) { //for th
 export  async function POST(request:NextRequest,response:NextResponse) { 
   try {
     const reqbody=await request.json()
-    console.log("this is reqbody from the post request of the fetchhistory",reqbody
-    )
+   
     const token=request.cookies.get('token')?.value|| ''
     const data=jwt.verify(token,process.env.TOKEN_SECRET!)
     const newhistory=new History({

@@ -10,7 +10,7 @@ export  async function POST(request:NextRequest,response:NextResponse) {
   
     const token=request.cookies.get('token')?.value|| ''
     const data=jwt.verify(token,process.env.TOKEN_SECRET!)
-    console.log("token data it is hhe",data.username)
+   
     const newservice=new service(
       {
         location:reqBody.location,
@@ -36,7 +36,7 @@ export async function GET(response: NextResponse) {
   try {
     // Get current date
     const currentDate = new Date();
-    console.log("current date^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",currentDate)
+
     // Find services that have a date greater than or equal to the current date
     const services = await Service.find({ date: { $lte: currentDate } });
     // Return the filtered services
@@ -51,8 +51,7 @@ export async function GET(response: NextResponse) {
 export async function PATCH(request:NextRequest,response:NextResponse){
   try {
     const reqbody=await request.json()
-    console.log("reqbodyfrom path request",reqbody)
-    console.log("req id",reqbody._id)
+   
     const deleteh=await Service.findOneAndDelete({_id:reqbody._id})
     return NextResponse.json({})
 

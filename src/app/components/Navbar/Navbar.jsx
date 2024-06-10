@@ -1,12 +1,18 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter,usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 function NavBar() {
   const router=useRouter()
   const [navbar, setNavbar] = useState(false);
+  
+  const pathname1 = usePathname()
+  const isActive = (pathname) => {
+	
+    return pathname1 === pathname ? 'text-indigo-700' : 'text-gray-500';
+  };
   const handlesignup=()=>{
     router.push("/signup")
 
@@ -29,11 +35,18 @@ function NavBar() {
 		<div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
 			<ul class="flex font-semibold justify-between">
                
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/">Home</Link></li>
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/aboutus">About</Link></li>
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/contact">Explore</Link></li>
-
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/contact">Contact</Link></li>
+			<li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/')}`}>
+              <Link href="/">Home</Link>
+            </li>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/aboutus')}`}>
+              <Link href="/aboutus">About</Link>
+            </li>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/explore')}`}>
+              <Link href="/explore">Explore</Link>
+            </li>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/contact')}`}>
+              <Link href="/contact">Contact</Link>
+            </li>
 			</ul>
 		</div>
 		<div class="order-2 md:order-3">

@@ -1,13 +1,17 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter,usePathname } from 'next/navigation';
 import { useState } from 'react';
 import axios from 'axios';
 export default function NavBarAdmin() {
   const router=useRouter()
 
-
+  const pathname1 = usePathname()
+  const isActive = (pathname) => {
+	
+    return pathname1 === pathname ? 'text-indigo-700' : 'text-gray-500';
+  };
 
   const handleLogout = async () => {
 	try {
@@ -37,11 +41,18 @@ export default function NavBarAdmin() {
 		<div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
 			<ul class="flex font-semibold justify-between">
                
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/adminhome">Home</Link></li>
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/users">Users</Link></li>
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/bookings">Slots & Bookings</Link></li>
-
-				<li class="md:px-4 md:py-2 hover:text-indigo-400"><Link href="/contact">Settings</Link></li>
+			<li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/adminhome')}`}>
+              <Link href="/adminhome">Home</Link>
+            </li>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/users')}`}>
+              <Link href="/users">Users</Link>
+            </li>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/bookings')}`}>
+              <Link href="/bookings">Slots & Bookings</Link>
+            </li>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/contact')}`}>
+              <Link href="/contact">Settings</Link>
+            </li>
 			</ul>
 		</div>
 		<div class="order-2 md:order-3">

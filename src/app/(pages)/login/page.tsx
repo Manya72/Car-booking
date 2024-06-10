@@ -94,14 +94,12 @@ export default function Login() {
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
-              <a
-                      href="#"
-                      title=""
-                      className="text-sm font-semibold text-black hover:underline"
-                    >
-                      {' '}
-                      Forgot password?{' '}
-                    </a>
+            <p className="text-sm  mt-4">
+          
+            <Link href="/resetpassword" className="font-medium text-primary underline">
+             Forgot Password
+            </Link>
+          </p>
             </div>
 
             <div className=" flex justify-center mt-5">

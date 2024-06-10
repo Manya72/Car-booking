@@ -37,10 +37,11 @@ export default function ownerdashboard() {
   const isOneDayFromNow = (date: string): boolean => {
     const today = moment();
     const orderDate = moment(date);
-  
-    // Check if the order date is before today and within the last 24 hours
-    return orderDate.isBefore(today) && today.diff(orderDate, 'hours') < 24;
+    
+    // Check if the order date is before or equal to today
+    return orderDate.isSameOrBefore(today, 'day');
   };
+  
   
   const handleSeeReview = (date: string) => {
     alert(`Fetching reviews for date: ${date}`);

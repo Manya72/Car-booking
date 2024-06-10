@@ -11,7 +11,7 @@ export async function GET(request:NextRequest){
    try {
       const body=request.json();
       const userdata=await User.find();
-      console.log("user data for the admin",userdata)
+  
       return NextResponse.json({
         data:userdata,
         message:"datafetched"

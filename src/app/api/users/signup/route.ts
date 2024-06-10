@@ -14,11 +14,17 @@ export async function POST(request:NextRequest){
      
         const {email,password,username,userType}=reqBody
         console.log("this is usertype",userType)
+        const user1 =await User.findOne({username})
+        console.log("this is")
+        if(user1){
+            console.log("this is response for validating")
+            return NextResponse.json({message:"Change the username",status:400})
+        }
         const user =await User.findOne({email})
         if(user){
-            console.log("this is response for validating")
-            return NextResponse.json({message:"User already exists",status:400})
-        }
+          console.log("this is response for validating")
+          return NextResponse.json({message:"Email already exists",status:400})
+      }
         vine.errorReporter = () => new ErrorReporter();
         const validator = vine.compile(registerSchema);
         const output = await validator.validate(reqBody);
