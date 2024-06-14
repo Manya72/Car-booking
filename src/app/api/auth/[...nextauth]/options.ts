@@ -1,45 +1,44 @@
-// import type { AuthOptions, NextAuthOptions } from "next-auth";
-// import Credentials from "next-auth/providers/credentials";
-// import Email from "next-auth/providers/email";
-// export const authoptions:AuthOptions={
-//     pages:{
-//         signIn:'/login'
+// // pages/api/auth/[...nextauth].js
+// import NextAuth from 'next-auth';
+// import Providers from 'next-auth/providers';
+// import axios from 'axios';
+// export default NextAuth({
+//   providers: [
+//     Providers.Google({
+//       clientId: process.env.GOOGLE_CLIENT_ID,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//     }),
+//   ],
+//   pages: {
+//     signIn: '/login',
+   
+//   },
+//   callbacks: {
+//     async signIn({ user,  email, }) {
+//       // first axios request to ascertain if our user exists in our custom DB
+//       console.log("daata from the signin callback",user)
+//       const response = await axios.post(
+//         "http://localhost:3000/api/login",
+//         { email: email }
+//       );
+//       if (response && response.data?.value === true) {
+//         // user exists return true passing control to the next callback
+//         return true;
+//       } else {
+//         // second axios call which creates a new user in our database
+//         const data = {
+//         //   firstName: given_name,
+//         //   lastName: profile.family_name,
+//           email: email,
+//         //   profileUrl: profile.picture,
+//         };
+//         // const response = await axios.post(
+//         // //   "http://localhost:9000/v1/auth/signup",
+//         //   data
+//         // );
+//         // retruns true thereby passing control to the next callback
+//         return true;
+//       }
 //     },
-//     providers:[
-//         Credentials({
-//             name:"Next Auth",
-//             credentials:{
-//                 email:{
-//                     label:"Email",
-//                     type:"email",
-//                     placeholder:"Enter your Email"
-//                 },
-//                 password:{
-//                     label:"Password",
-//                     type:"password"
-//                 }
-//             }
-//             ,
-//             async authorize(credentials, req) {
-//                 const user = { id: "1", name: "J Smith", email:credentials?.email }
-
-//                 if (user) {
-//                   // Any object returned will be saved in `user` property of the JWT
-//                   return user
-//                 } else {
-//                   // If you return null then an error will be displayed advising the user to check their details.
-//                   return null
-          
-//                   // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-//                 }
-//             },
-//         })
-//     ],
-//     // pages: {
-//     //     signIn: '/login',
-//     //     // signOut: '/auth/signout',
-//     //     error: '/auth/error', // Error code passed in query string as ?error=
-//     //     verifyRequest: '/auth/verify-request', // (used for check email message)
-//     //     newUser: '/signup' // New users will be directed here on first sign in (leave the property out if not of interest)
-//     //   }
 // }
+// });

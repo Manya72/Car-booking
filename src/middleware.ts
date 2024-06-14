@@ -9,6 +9,7 @@ export async function middleware(request: NextRequest) {
   const path=request.nextUrl.pathname
   token=request.cookies.get('token')?.value|| ''
   try {
+    
     if(path==='/dashboard' || path==='/bookslot' || path==='/users' || path==='/adminhome' ||
       path==='/bookings'){
       decodedToken = await verifyAuth(token)

@@ -17,6 +17,12 @@ function NavBar() {
     router.push("/signup")
 
 
+    
+  }
+  const handleLogin=()=>{
+    router.push("/login")
+
+
   }
   return (
     
@@ -41,22 +47,25 @@ function NavBar() {
             <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/aboutus')}`}>
               <Link href="/aboutus">About</Link>
             </li>
-            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/explore')}`}>
+            {/* <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/explore')}`}>
               <Link href="/explore">Explore</Link>
-            </li>
+            </li> */}
             <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/contact')}`}>
               <Link href="/contact">Contact</Link>
             </li>
 			</ul>
 		</div>
 		<div class="order-2 md:order-3">
-			<button onClick={handlesignup} class="px-4 py-2 bg-indigo-700 hover:bg-indigo-500 text-gray-50 rounded-xl flex items-center gap-2">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                <span>Login/Signup</span>
-            </button>
+    {/* <button onClick={handlesignup} class="px-4 py-2 bg-indigo-700 hover:bg-indigo-500 text-gray-50 rounded-xl flex items-center gap-2"> */}
+    <div class="flex gap-2">
+      <Link href="/signup" class="px-2 py-1 hover:text-indigo-400 text-black-50 rounded-lg">
+        Signup
+      </Link>
+      <Link href="/login" class="px-2 py-1 hover:text-indigo-400 text-black-50 rounded-lg">
+        Login
+      </Link>
+    </div>
+{/* </button> */}
 		</div>
 	</div>
 </nav>

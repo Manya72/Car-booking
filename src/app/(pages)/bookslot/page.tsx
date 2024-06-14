@@ -58,15 +58,17 @@ export default function BookSlot() {
                 )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {availabilities.map((availability) => (
-                        <div key={availability.date + availability.startTime} className="bg-white p-6 rounded-lg shadow-md">
-                            <h2 className="text-xl font-semibold mb-2">Service Availability</h2>
-                            <p><strong>Date:</strong> {availability.date}</p>
-                            <p><strong>Start Time:</strong> {availability.startTime}</p>
-                            <p><strong>End Time:</strong> {availability.endTime}</p>
-                            <p><strong>Location:</strong> {availability.location}</p>
-                            <p><strong>Car Shop Owner:</strong> {availability.carShopOwner}</p>
+                        <div key={availability.date + availability.startTime} className="bg-white p-6 rounded-lg shadow-md flex flex-col justify-between">
+                            <div>
+                                <h2 className="text-xl font-semibold mb-2">Service Availability</h2>
+                                <p><strong>Date:</strong> {availability.date}</p>
+                                <p><strong>Start Time:</strong> {availability.startTime}</p>
+                                <p><strong>End Time:</strong> {availability.endTime}</p>
+                                <p><strong>Location:</strong> {availability.location}</p>
+                                <p><strong>Car Shop Owner:</strong> {availability.carShopOwner}</p>
+                            </div>
                             <button
-                                className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                                className="mt-auto bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 self-left"
                                 onClick={() => {
                                     setCurrentAvailability(availability);
                                     setShowModal(true);

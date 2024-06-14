@@ -50,9 +50,9 @@ export default function NavBarAdmin() {
             <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/bookings')}`}>
               <Link href="/bookings">Slots & Bookings</Link>
             </li>
-            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/contact')}`}>
+            {/* <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/contact')}`}>
               <Link href="/contact">Settings</Link>
-            </li>
+            </li> */}
 			</ul>
 		</div>
 		<div class="order-2 md:order-3">

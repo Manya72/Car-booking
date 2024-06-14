@@ -48,15 +48,15 @@ export default function AboutPageOne() {
   <NavBar/>
       <section className="bg-gray-50 py-16">
         <div className="mx-auto max-w-7xl px-4">
-          <h2 className="text-2xl font-bold text-indigo-700">About CarWashPro</h2>
+          <h2 className="text-2xl font-bold text-indigo-700">About </h2>
           <p className="mt-4 ">
-            Welcome to CarWashPro, your premier destination for all your car wash needs. Our mission is to provide top-notch car wash services with the convenience of online booking. With CarWashPro, you can easily schedule your car wash, choose from a variety of services, and visit our locations at your convenience.
+            Welcome , your premier destination for all your car wash needs. Our mission is to provide top-notch car wash services with the convenience of online booking. With this website, you can easily schedule your car wash, choose from a variety of services, and visit our locations at your convenience.
           </p>
           <p className="mt-4">
-            Our state-of-the-art facilities and experienced staff ensure that your car receives the best care possible. Whether you need a quick wash or a detailed cleaning, CarWashPro is here to make your car look its best.
+            Our state-of-the-art facilities and experienced staff ensure that your car receives the best care possible. Whether you need a quick wash or a detailed cleaning,  is here to make your car look its best.
           </p>
           <p className="mt-4">
-            Thank you for choosing CarWashPro. We look forward to serving you!
+            Thank you for choosing us. We look forward to serving you!
           </p>
         </div>
       </section>

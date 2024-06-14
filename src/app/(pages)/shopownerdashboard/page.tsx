@@ -48,10 +48,10 @@ export default function ownerdashboard() {
   };
   
   return (
-    <main>
+    <main className='bg-indigo-50'>
       <NavbarOwner />
       <h1 className=" pt-10 leading-none tracking-tight md:text-5xl lg:text-4xl dark:text-white text-2xl font-bold mb-8 text-center text-indigo-600">Your order History</h1>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto bg-indigo-500">
         <table className="min-w-full divide-y divide-indigo-200">
           <thead className="bg-blue-50">
             <tr>

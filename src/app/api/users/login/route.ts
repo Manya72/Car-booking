@@ -12,8 +12,10 @@ export async function POST(request:NextRequest){
         console.log("this is reqbody",reqBody)
         const {email,password}=reqBody
         const user =await User.findOne({email})
+        console.log("user from the route ts",user)
         if(!user){
-            return NextResponse.json({error:"User does not  exists.",status:401})
+            console.log("user from the route ts",user)
+            return NextResponse.json({error:"User does not  exists.",status:400})
         }
         
         const validpassword=await bcryptjs.compare(password,user.password)
