@@ -3,13 +3,12 @@ import User from "@/models/userModel"
 import { NextRequest,NextResponse} from "next/server"
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken';
-
+import { sendVerificationEmail } from "@/app/lib/mail";
 connect()
 
 export async function POST(request:NextRequest){
     try {
         const reqBody=await request.json()
-        console.log("this is reqbody",reqBody)
         const {email,password}=reqBody
         const user =await User.findOne({email})
         console.log("user from the route ts",user)
@@ -17,7 +16,13 @@ export async function POST(request:NextRequest){
             console.log("user from the route ts",user)
             return NextResponse.json({error:"User does not  exists.",status:400})
         }
-        
+        if(!user.isVerified){
+            const otp = Math.floor(100000 + Math.random() * 900000);
+            user.otp=otp;   
+            user.save();
+            sendVerificationEmail(email,otp)
+            return NextResponse.json({error:"User is not verified",status:400})
+        }
         const validpassword=await bcryptjs.compare(password,user.password)
         
         if(!validpassword){

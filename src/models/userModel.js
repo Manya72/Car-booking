@@ -30,6 +30,10 @@ userType: {
     enum: ['admin', 'user', 'carShopOwner'], 
     default: 'user' 
   },
+  otp:
+  {
+    type:Number,
+  },
 forgotPasswordtoken:String,
 forgotPasswordTokenExpiry:Date,
 verifyToken:String,

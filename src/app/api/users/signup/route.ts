@@ -5,24 +5,25 @@ import bcryptjs from 'bcryptjs'
 import { registerSchema } from "@/validator/authSchema";
 import vine, { errors } from "@vinejs/vine";
 import ErrorReporter from "@/validator/ErrorReporter";
+import { sendVerificationEmail } from "@/app/lib/mail";
+
 connect()
 
 export async function POST(request:NextRequest){
     try{
         const reqBody=await request.json()
-        console.log("this is reqbody",reqBody)
      
         const {email,password,username,userType}=reqBody
-        console.log("this is usertype",userType)
+
         const user1 =await User.findOne({username})
-        console.log("this is")
+
         if(user1){
-            console.log("this is response for validating")
+           
             return NextResponse.json({message:"Change the username",status:400})
         }
         const user =await User.findOne({email})
         if(user){
-          console.log("this is response for validating")
+    
           return NextResponse.json({message:"Email already exists",status:400})
       }
         vine.errorReporter = () => new ErrorReporter();
@@ -31,15 +32,18 @@ export async function POST(request:NextRequest){
         //hash password
         const salt=await bcryptjs.genSalt(10)
         const hashPassword=await bcryptjs.hash(password,salt)
-
+        const otp = Math.floor(100000 + Math.random() * 900000); // 6 digit OTP
         const newUser= new User({
             username,
             email,
+            otp:otp,
             password: hashPassword,
             userType,
         })
         console.log("new user")
         const savedUser=await newUser.save()
+        
+        const response=await sendVerificationEmail(email,otp)
         return NextResponse.json({message:"User created successfully",success:true,savedUser})
 
 
@@ -51,4 +55,8 @@ export async function POST(request:NextRequest){
             
           );
         }
+        return NextResponse.json(
+          { status: 400, errors:"error from signup" ,error},
+          
+        );
 }}

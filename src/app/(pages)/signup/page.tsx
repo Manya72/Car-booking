@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 import axios from 'axios';
 import Image from 'next/image';
-
+import { validate } from 'email-validator';
 export default function Signup() {
   const router = useRouter();
   const [user, setuser] = React.useState({
@@ -15,13 +15,17 @@ export default function Signup() {
     userType: 'user',
     password_confirmation: "",
   });
-  
+
+  const [otp, setOtp] = React.useState("");
+  const [showOtpInput, setShowOtpInput] = React.useState(false);
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setloading] = React.useState(false);
   const [signupSuccess, setSignupSuccess] = React.useState(false);
   const [signupFail, setSignupFail] = React.useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const isValidEmailFormat = (email:any) => {
+    return validate(email);
+  };
   const onSignup = async () => {
     if (user.password !== user.password_confirmation) {
       setErrorMessage("Passwords do not match");
@@ -32,32 +36,38 @@ export default function Signup() {
       setErrorMessage("All fields are mandatory!!");
       return;
     }
+    if (!isValidEmailFormat(email)) {
+      setErrorMessage("Invalid email format. Please enter a valid email.");
+      return;
+    }
     try {
       const response = await axios.post('/api/users/signup', user);
-      console.log("this is it", response.data.errors);
-
-      if (response.data.status === 400) {
-        if (response.data.message != null) {
-          setErrorMessage(response.data.message);
-        } else {
-          setErrorMessage(response.data.errors?.username || response.data.errors?.password || response.data.errors?.email);
-        }
-        setSignupFail(true);
-        return;
+      console.log("response from the signupppp route.ts",response)
+      if (response.data.success) {
+        setShowOtpInput(true);
+      } else {
+        setErrorMessage(response.data.message);
       }
-      setSignupSuccess(true);
     } catch (error) {
-      console.log("signup failed");
+      console.log("signup failed", error);
+      setErrorMessage("Signup failed");
     }
   };
 
-  useEffect(() => {
-    if (user.email.length > 0 && user.password.length > 0 && user.username.length > 0) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
+  const onVerifyOtp = async () => {
+    try {
+      const response = await axios.post('/api/users/verify-otp', { email: user.email, otp });
+      console.log("this is the response from the api of otp",response.data.status)
+      if (response.data.success) {
+        setSignupSuccess(true);
+      } else {
+        setErrorMessage(response.data.message);
+      }
+    } catch (error) {
+      console.log("OTP verification failed", error);
+      setErrorMessage("OTP verification failed");
     }
-  }, [user]);
+  };
 
   useEffect(() => {
     if (signupSuccess) {
@@ -66,10 +76,12 @@ export default function Signup() {
   }, [signupSuccess, router]);
 
   useEffect(() => {
-    if (signupFail) {
-      console.log("Signup failed");
+    if (user.email.length > 0 && user.password.length > 0 && user.username.length > 0) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
     }
-  }, [signupFail, router]);
+  }, [user]);
 
   return (
     <main>
@@ -176,6 +188,31 @@ export default function Signup() {
                   <Link href="/login" className="font-medium text-primary underline">Login</Link>
                 </p>
               </form>
+              {showOtpInput && (
+                <div className="mt-6">
+                  <h4 className="text-2xl mb-4">Verify OTP</h4>
+                  <div className="mb-4">
+                    <label htmlFor="otp">OTP</label>
+                    <input
+                      id="otp"
+                      type="text"
+                      placeholder="Enter OTP"
+                      className="p-0.5 border border-gray-300 rounded-md placeholder-gray-500 text-base w-full"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex justify-center mt-5">
+                    <button
+                      type="button"
+                      onClick={onVerifyOtp}
+                      className={`bg-indigo-600 w-full hover:bg-indigo-500 text-gray-50 font-bold py-2 px-4 rounded ${!otp ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                      Verify OTP
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
