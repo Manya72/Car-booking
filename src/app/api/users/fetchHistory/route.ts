@@ -9,9 +9,9 @@ export  async function GET(request:NextRequest,response:NextResponse) { //for th
   try {
     const token=request.cookies.get('token')?.value|| ''
     const data=jwt.verify(token,process.env.TOKEN_SECRET!)
-    console.log("data .username",data.username)
-   const username=data.username
-    const userHistory=await History.find({UserName:username})
+
+    const username=data.username
+    const userHistory=await History.find({UserName:username })
     console.log("history",userHistory)
     return NextResponse.json(userHistory)
   } catch (error) {

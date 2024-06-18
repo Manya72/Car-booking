@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-const userSchema =new mongoose.Schema({
+const deleted =new mongoose.Schema({
     UserName:{
         type:String,
         required:true,
@@ -40,10 +40,10 @@ const userSchema =new mongoose.Schema({
   }
 
 })
-const History=mongoose.models.userServiceHistories
-|| mongoose.model("userServiceHistories",userSchema)
+const deletedService=mongoose.models.deletedService
+|| mongoose.model("deletedService",deleted)
 
-export default History;
+export default deletedService;
 
 
 
