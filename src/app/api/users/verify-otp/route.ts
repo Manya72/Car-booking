@@ -8,12 +8,15 @@ export async function POST(request: NextRequest) {
   try {
     const { email, otp } = await request.json();
     const user = await User.findOne({ email });
-    console.log("this is the function for post request of otp")
-    if (user && user.otp === otp) {
+    const formattedOtp = String(otp).trim();
+    const formattedUserOtp = String(user.otp).trim();
+    console.log("this is the function for post request of otp",otp)
+    console.log("this is the function for post request of otp",user.otp)
+    if (user && formattedOtp === formattedUserOtp) {
       user.isVerified = true;
       user.otp = undefined; // Remove the OTP from the database
       await user.save();
-
+      // console.log
       return NextResponse.json({ message: "Email verified successfully." ,success:true});
     } else {
       return NextResponse.json({ message: "Invalid OTP.", success: false });

@@ -14,6 +14,10 @@ export default function Signup() {
     username: "",
     userType: 'user',
     password_confirmation: "",
+    ShopName:"",
+    Address:"",
+    Contact:"",
+    OwnerId:""
   });
 
   const [otp, setOtp] = React.useState("");
@@ -145,6 +149,56 @@ export default function Signup() {
                     <option value="carShopOwner">Car Shop Owner</option>
                   </select>
                 </div>
+                <div className="mb-4">
+                      <label htmlFor="Contact">Contact</label>
+                      <input
+                        id="Contact"
+                        type="text"
+                        placeholder="Contact"
+                        className="p-0.5 border border-gray-300 rounded-md placeholder-gray-500 text-base w-full"
+                        value={user.Contact}
+                        onChange={(e) => setuser({ ...user, Contact: e.target.value })}
+                      />
+                    </div>
+                {user.userType==='carShopOwner' &&
+                (
+                  <>
+                  <div className="mb-4">
+                      <label htmlFor="shopName">Shop Name</label>
+                      <input
+                        id="shopName"
+                        type="text"
+                        placeholder="Shop Name"
+                        className="p-0.5 border border-gray-300 rounded-md placeholder-gray-500 text-base w-full"
+                        value={user.ShopName}
+                        onChange={(e) => setuser({ ...user, ShopName: e.target.value })}
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <label htmlFor="Address">Address</label>
+                      <input
+                        id="Address"
+                        type="text"
+                        placeholder="Address"
+                        className="p-0.5 border border-gray-300 rounded-md placeholder-gray-500 text-base w-full"
+                        value={user.Address}
+                        onChange={(e) => setuser({ ...user, Address: e.target.value })}
+                      />
+                    </div>
+                 
+                    <div className="mb-4">
+                      <label htmlFor="OwnerId">Owner-Id</label>
+                      <input
+                        id="OwnerId"
+                        type="text"
+                        placeholder="OwnerId"
+                        className="p-0.5 border border-gray-300 rounded-md placeholder-gray-500 text-base w-full"
+                        value={user.OwnerId}
+                        onChange={(e) => setuser({ ...user, OwnerId: e.target.value })}
+                      />
+                    </div>
+                  </>
+                )}
                 <div className="mb-4">
                   <label htmlFor="password">Password</label>
                   <input

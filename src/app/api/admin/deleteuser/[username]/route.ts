@@ -12,7 +12,7 @@ export async function DELETE(username:any){
     const parts = username.url.split('/');
     const un = parts[parts.length - 1];
       const userdata=await User.deleteOne({username:un});
-   
+      console.log("from the deleteuser route",userdata)
       return NextResponse.json({
         status:200,
         message:"datafetched"

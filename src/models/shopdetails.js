@@ -10,7 +10,7 @@ const details=new mongoose.Schema({
         type:String
 
     },
-    hours:{
+    OwnerId:{
         type:String
     },
     isApproved:{

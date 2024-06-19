@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import NavbarUser from '../../components/Navbar/NavBarUser';
-// Import necessary libraries and interfaces
-
 
 interface User {
   _id: string;
@@ -13,7 +11,7 @@ interface User {
   startTime: string;
   endTime: string;
   location: string;
-  review: string; // Include review field in User interface
+  review: string;
   status: string;
 }
 
@@ -24,7 +22,6 @@ export default function Dashboard() {
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [review, setReview] = useState('');
 
-  // Fetch user data on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,25 +37,22 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
-  // Handle click on "Give Review" button
   const handleReviewClick = (userId: string) => {
     setSelectedUserId(userId);
     setShowModal(true);
   };
 
-  // Handle submission of review
   const handleSubmitReview = async () => {
     try {
-      // Submit review to server
-      await axios.patch(`/api/users/submitreview`, {userId:selectedUserId, review:review });
-      // Update local state to reflect review submission
-      const updatedUsers = users.map(user =>
-        user._id === selectedUserId ? { ...user, review } : user
-      );
-      setUsers(updatedUsers);
-      // Reset modal state
-      setShowModal(false);
-      setReview('');
+      if (selectedUserId) {
+        await axios.patch(`/api/users/submitreview`, { userId: selectedUserId, review });
+        const updatedUsers = users.map(user =>
+          user._id === selectedUserId ? { ...user, review } : user
+        );
+        setUsers(updatedUsers);
+        setShowModal(false);
+        setReview('');
+      }
     } catch (error) {
       console.error('Error submitting review:', error);
       alert('Error submitting review. Please try again.');
@@ -100,7 +94,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Modal for submitting review */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-md text-center">

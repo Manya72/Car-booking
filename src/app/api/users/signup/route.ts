@@ -6,14 +6,14 @@ import { registerSchema } from "@/validator/authSchema";
 import vine, { errors } from "@vinejs/vine";
 import ErrorReporter from "@/validator/ErrorReporter";
 import { sendVerificationEmail } from "@/app/lib/mail";
-
+import shopDetail from "@/models/shopdetails";
 connect()
 
 export async function POST(request:NextRequest){
     try{
         const reqBody=await request.json()
      
-        const {email,password,username,userType}=reqBody
+        const {email,password,username,userType,ShopName,Address,Contact,OwnerId}=reqBody
 
         const user1 =await User.findOne({username})
 
@@ -33,19 +33,39 @@ export async function POST(request:NextRequest){
         const salt=await bcryptjs.genSalt(10)
         const hashPassword=await bcryptjs.hash(password,salt)
         const otp = Math.floor(100000 + Math.random() * 900000); // 6 digit OTP
-        const newUser= new User({
+        console.log("new user")
+        
+        
+        const response=await sendVerificationEmail(email,otp)
+        
+          const newUser= new User({
             username,
             email,
             otp:otp,
             password: hashPassword,
             userType,
         })
-        console.log("new user")
-        const savedUser=await newUser.save()
-        
-        const response=await sendVerificationEmail(email,otp)
-        return NextResponse.json({message:"User created successfully",success:true,savedUser})
+       
 
+        
+        if(userType==='carShopOwner'){
+          const details= new shopDetail({
+            email,
+            Contact,
+            Address,
+            ShopName,
+            OwnerId,
+            isApproved:false,
+        })
+        const savedUser=await details.save()
+
+        }
+        
+        
+        
+        const savedUser=await newUser.save()
+        return NextResponse.json({message:"User created successfully",success:true,savedUser})
+      
 
     }
     catch (error) {
