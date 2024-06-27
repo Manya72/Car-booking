@@ -76,9 +76,9 @@ export default function Login() {
     if (userType === "admin") {
       router.push("/adminhome");
     } else if (userType === "user") {
-      router.push("/dashboard");
+      router.push("/userdashboard");
     } else {
-      router.push("/shopownerdashboard");
+      router.push("/Ownerhome");
     }
   };
 

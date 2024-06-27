@@ -18,7 +18,12 @@ const details=new mongoose.Schema({
     },
     email:{
         type:String
+    },
+    hours:{
+type:String
     }
 })
 const shopDetail=mongoose.models.ShopDetails || mongoose.model("ShopDetails",details)
 export default shopDetail
+
+

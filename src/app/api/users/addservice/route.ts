@@ -32,13 +32,15 @@ export  async function POST(request:NextRequest,response:NextResponse) {
     
   }
 }
-export async function GET(response: NextResponse) {
+export async function GET(request:NextRequest,response: NextResponse) {
   try {
     // Get current date
     const currentDate = new Date();
-
+    
+    const token=request.cookies.get('token')?.value|| ''
+    const data=jwt.verify(token,process.env.TOKEN_SECRET!)
     // Find services that have a date greater than or equal to the current date
-    const services = await Service.find({ date: { $lte: currentDate } });
+    const services = await Service.find({carShopOwner:data.username});
     // Return the filtered services
     return NextResponse.json(services);
   } catch (error) {

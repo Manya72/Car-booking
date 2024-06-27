@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
   try {
     
     if(path==='/dashboard' || path==='/bookslot' || path==='/users' || path==='/adminhome' ||
-      path==='/bookings'){
+      path==='/bookings' || path==='/userdashboard' ){
       decodedToken = await verifyAuth(token)
       if(decodedToken.userType==='carShopOwner'){
         return NextResponse.redirect(new URL('/shopownerdashboard',request.nextUrl))
@@ -32,7 +32,8 @@ export async function middleware(request: NextRequest) {
   
     }
 
-    if(path==='/shopownerdashboard' || path==='/addslot' || path==='/dashboard' || path==='/bookslot' 
+    if(path==='/shopownerdashboard' || path==='/addslot' || path==='/dashboard' || path==='/bookslot' || path==='/bookslot'
+      || path==='/userdashboard' 
      
     ){
   
@@ -100,6 +101,7 @@ matcher: [
   '/profile',
   '/adminhome',
   '/users',
-  '/bookings'
+  '/bookings',
+  '/userdashboard'
 ]
 }

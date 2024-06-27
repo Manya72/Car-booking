@@ -21,14 +21,16 @@ const serviceschema =new mongoose.Schema({
     endTime:{
         type:String,
         required:true
+    },discount:{
+        type:String
     }
 
 
 })
-const History=mongoose.models.services
+const Services=mongoose.models.services
 || mongoose.model("services",serviceschema)
 
-export default History;
+export default Services;
 
 
 

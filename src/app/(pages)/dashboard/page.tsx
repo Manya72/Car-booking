@@ -27,6 +27,7 @@ export default function Dashboard() {
       try {
         const response = await axios.get('/api/users/fetchHistory');
         const fetchedUsers: User[] = response.data;
+        console.log("this is the fetched users", fetchedUsers)
         setUsers(fetchedUsers);
         setLoading(false);
       } catch (error) {
@@ -67,7 +68,7 @@ export default function Dashboard() {
     <main className="bg-gray-100 min-h-screen">
       <NavbarUser />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-center text-indigo-600">User Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center text-indigo-600">Manage Services</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {users.length > 0 ? (
             users.map((user) => (
@@ -79,6 +80,8 @@ export default function Dashboard() {
                 <p className="text-gray-600"><span className="font-semibold text-gray-800">Location:</span> {user.location}</p>
                 {user.review ? (
                   <p className="text-gray-600"><span className="font-semibold text-gray-800">Your Review:</span> {user.review}</p>
+                ) : user.status === "Pending" ? (
+                  <p className="text-gray-600"><span className="font-semibold text-gray-800">Status:</span> Pending Service</p>
                 ) : (
                   <div className="mt-auto self-left">
                     <button onClick={() => handleReviewClick(user._id)} className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">

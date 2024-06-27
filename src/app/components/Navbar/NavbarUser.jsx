@@ -35,8 +35,8 @@ function NavbarUser	() {
         </div>
         <div className="text-gray-500 order-3 w-full md:w-auto md:order-2">
           <ul className="flex font-semibold justify-between">
-            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/dashboard')}`}>
-              <Link href="/dashboard">Dashboard</Link>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/userdashboard')}`}>
+              <Link href="/userdashboard">Dashboard</Link>
             </li>
             <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/bookslot')}`}>
               <Link href="/bookslot">Book A Slot</Link>
@@ -62,7 +62,7 @@ function NavbarUser	() {
           </button>
         </div>
         {logoutModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-20">
             <div className="bg-white p-6 rounded shadow-md text-center">
               <p className="mb-4 font-bold">Do You Really Want to Logout?</p>
               <button

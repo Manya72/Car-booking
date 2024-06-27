@@ -11,9 +11,17 @@ export  async function GET(request:NextRequest,response:NextResponse) { //for th
     const data=jwt.verify(token,process.env.TOKEN_SECRET!)
 
     const username=data.username
-    const userHistory=await History.find({UserName:username })
-    console.log("history",userHistory)
-    return NextResponse.json(userHistory)
+    if(data.userType==='user'){
+      const userHistory=await History.find({UserName:username })
+      return NextResponse.json(userHistory)
+    }
+    else{
+      const userHistory=await History.find({carShopOwner:username })
+      return NextResponse.json(userHistory)
+    }
+    
+    // console.log("history",username)
+    
   } catch (error) {
     return NextResponse.json({message:error})
     
