@@ -29,7 +29,7 @@ yarn-error.log*
 .env
 # vercel
 .vercel
-
+/Users/manya/Documents/Car-booking/.env 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
