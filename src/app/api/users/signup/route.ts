@@ -56,6 +56,8 @@ export async function POST(request:NextRequest){
             ShopName,
             OwnerId,
             isApproved:false,
+            username,
+            slots:[{start:"",end:""}]
         })
         const savedUser=await details.save()
 

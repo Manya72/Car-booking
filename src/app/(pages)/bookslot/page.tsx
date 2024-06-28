@@ -29,7 +29,19 @@ export default function BookSlot() {
         };
         fetchAvailabilities();
     }, []);
-
+    useEffect(() => {
+        const addDetails = async () => {
+            try {
+        //    const response=await axios.get('/api/users/transferdata')
+        // executeDataTransfer()
+                
+            } catch (error) {
+                console.log("error while addind slots",error)
+     
+        };
+    }
+        addDetails();
+    }, []);
     const bookSlot = async (selectedAvailability: Availability) => {
         try {
             console.log("Booking slot for:", selectedAvailability);

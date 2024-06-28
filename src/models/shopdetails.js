@@ -9,6 +9,9 @@ const details=new mongoose.Schema({
     Contact:{
         type:String
 
+    },username:{
+        type:String
+
     },
     OwnerId:{
         type:String
@@ -21,7 +24,18 @@ const details=new mongoose.Schema({
     },
     hours:{
 type:String
-    }
+    },
+    slots:[{
+        start:{
+            type:String,
+            default:""
+        },
+        end:{
+            type:String,
+            default:""
+        }
+       
+    }]
 })
 const shopDetail=mongoose.models.ShopDetails || mongoose.model("ShopDetails",details)
 export default shopDetail

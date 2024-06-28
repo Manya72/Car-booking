@@ -155,7 +155,7 @@ fetchservices()
       </tr>
     </thead>
     <tbody>
-      {data.slice(0, 4).map((service) => (
+      {data.slice(0, 5).map((service) => (
         <tr key={service._id} className="hover:bg-gray-100 transition duration-300">
           <td className="border px-4 py-2">{service.date}</td>
           <td className="border px-4 py-2">{service.location}</td>

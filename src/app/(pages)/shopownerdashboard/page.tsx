@@ -18,6 +18,7 @@ export default function OwnerDashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showdeletemodal,setdeletmodal]=useState(false)
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const[review,setreview]=useState('')
   useEffect(() => {
@@ -37,10 +38,10 @@ export default function OwnerDashboard() {
     fetchData();
   }, []);
 
- const handledeleteservice=async(id:String)=>{
+ const handledeleteservice=async()=>{
   try {
     // setSelectedUserId(id)
-    const response=await axios.post('/api/users/fetchorders',{id:id})
+    const response=await axios.post('/api/users/fetchorders',{id:selectedUserId})
     
     console.log("for the delete service",response)
     window.location.reload()
@@ -130,7 +131,9 @@ export default function OwnerDashboard() {
                       <button
                         className="text-indigo-600 hover:text-indigo-900 ml-4"
                         onClick={() => {
-                          handledeleteservice(user._id)
+                          setSelectedUserId(user._id);
+                          // handledeleteservice(user._id)
+                          setdeletmodal(true)
                           // setSelectedUserId(user._id);s
                           
                         }}
@@ -183,6 +186,25 @@ export default function OwnerDashboard() {
                       </button>
                     </div>
                   </div>
+                  )}
+                         {showdeletemodal  && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-opacity-50">
+                      <div className="bg-white p-6 rounded shadow-md text-center">
+                        <p className="mb-4">Are you sure you want to delete this service?</p>
+                        <button
+                          className="bg-blue-500 text-white py-2 px-3 rounded hover:bg-blue-600 mr-2"
+                          onClick={()=>handledeleteservice()}
+                        >
+                          YES
+                        </button>
+                        <button
+                          className="bg-blue-500 text-white py-2 px-3 rounded hover:bg-blue-600"
+                          onClick={() => setdeletmodal(false)}
+                        >
+                          NO
+                        </button>
+                      </div>
+                    </div>
                   )}
                 </td>
               </tr>

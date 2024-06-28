@@ -17,7 +17,8 @@ export  async function POST(request:NextRequest,response:NextResponse) {
         startTime:reqBody.startTime,
         endTime:reqBody.endTime,
         date:reqBody.date,
-        carShopOwner:data.username
+        carShopOwner:data.username,
+        email:data.email
 
       }
     )
@@ -40,7 +41,7 @@ export async function GET(request:NextRequest,response: NextResponse) {
     const token=request.cookies.get('token')?.value|| ''
     const data=jwt.verify(token,process.env.TOKEN_SECRET!)
     // Find services that have a date greater than or equal to the current date
-    const services = await Service.find({carShopOwner:data.username});
+    const services = await Service.find({});
     // Return the filtered services
     return NextResponse.json(services);
   } catch (error) {

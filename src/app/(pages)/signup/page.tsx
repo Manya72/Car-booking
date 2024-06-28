@@ -17,7 +17,8 @@ export default function Signup() {
     ShopName:"",
     Address:"",
     Contact:"",
-    OwnerId:""
+    OwnerId:"",
+    hours:""
   });
 
   const [otp, setOtp] = React.useState("");
@@ -49,6 +50,7 @@ export default function Signup() {
       console.log("response from the signupppp route.ts",response)
       if (response.data.success) {
         setShowOtpInput(true);
+        console.log("sudshvhsvffvJfs")
       } else {
         setErrorMessage(response.data.message);
       }
@@ -90,7 +92,7 @@ export default function Signup() {
   return (
     <main>
       <Navbar />
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="flex justify-center items-center min-h-screen bg-100 mt-10 mb-10">
         <div className="flex w-3/4 bg-white shadow-lg rounded-lg overflow-hidden">
           {/* Left side with background image and welcome message */}
           <div className="relative w-1/2 bg-indigo-600">
@@ -197,6 +199,22 @@ export default function Signup() {
                         onChange={(e) => setuser({ ...user, OwnerId: e.target.value })}
                       />
                     </div>
+                    <div className="mb-4">
+                      <label htmlFor="hours">Working hours</label>
+                      <input
+                        id="hours"
+                        type="text"
+                        placeholder="Working-Hours"
+                        className="p-0.5 border border-gray-300 rounded-md placeholder-gray-500 text-base w-full"
+                        value={user.hours}
+                        onChange={(e) => setuser({ ...user, hours: e.target.value })}
+                      />
+                    </div>
+                    {user.hours &&(
+<>
+                      
+</>
+                    )}
                   </>
                 )}
                 <div className="mb-4">
