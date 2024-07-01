@@ -89,7 +89,7 @@ fetchservices()
             
             <h2 className="text-xl font-semibold text-center mt-3  text-gray-800 mb-2">Customize your Services</h2>
           <div className="  top-0  mt-7 mr-20 0 ">
-    <button className="bg-indigo-500  ml-20 text-white p-4 pr-27 rounded hover:bg-indigo-700 transition duration-300" >
+    <button className="bg-indigo-500  ml-20 text-white p-4 pr-27 rounded hover:bg-indigo-700 transition duration-300" onClick={()=>router.push('/editServices')} >
   
       Click Here to Edit Added Services
     </button>

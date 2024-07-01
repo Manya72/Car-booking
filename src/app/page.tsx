@@ -7,7 +7,7 @@ import { CheckCircle, ChevronDown, ChevronUp, Menu, Star, X } from 'lucide-react
 export default async function Home() {
   return (
     <main className="relative min-h-screen">
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-40">
         <Image
           src="/bg.jpg" // Replace with the path to your background image
           alt="Background Image"
@@ -19,9 +19,11 @@ export default async function Home() {
         />
       </div>
       <Navbar />
-      <div className="bg-opacity-50 min-h-screen">
+      
+      <div className="bg-gradient-to-r from-slate-900 to-slate-700 min-h-screen">
         <div className="container mx-auto px-4 py-8 text-left">
           <div className="relative w-full">
+
             <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
               <div className="flex flex-col justify-center px-4 py-12 md:py-16 lg:col-span-7 lg:gap-x-6 lg:px-6 lg:py-24 xl:col-span-6">
                 <div className="mt-8 flex max-w-max items-center space-x-2 rounded-full bg-indigo-100 p-1">

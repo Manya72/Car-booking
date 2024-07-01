@@ -5,6 +5,9 @@ import serviceDetail from '@/models/ServiceAvailability'; // Adjust the import b
 // import { NextResponse } from 'next/server';
 import { connect } from '@/dbconfig/dbconfig';
 connect()
+function formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
+}
 export async function GET(request:NextRequest,res:NextResponse){
     try {
         const shopData = await shopDetail.find({}); 
@@ -22,7 +25,7 @@ export async function GET(request:NextRequest,res:NextResponse){
                     startTime: slot.start,
                     endTime: slot.end,
                     location: shop.Address, // Assuming Address field in shopDetail is the location
-                    date: new Date().toISOString(), // Example: Use current date or slot date from your data
+                    date: formatDate(new Date()), // Example: Use current date or slot date from your data
                     carShopOwner: shop.username, // Assuming email field in shopDetail is the car shop owner
                 };
                 availabilities.push(availability);
