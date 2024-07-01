@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node cron.js & next dev -H 0.0.0.0",
+    "dev": "concurrently \"node cron.js\" \"next dev -H 0.0.0.0\"",
     "build": "next build",
-    "start": "node cron.js & next start",
+    "start": "concurrently \"node cron.js\" \"next start\"",
     "lint": "next lint"
   },
   "dependencies": {
@@ -41,6 +41,7 @@
     "@types/nodemailer": "^6.4.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
     "postcss": "^8.4.38",

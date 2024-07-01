@@ -27,9 +27,9 @@ function NavBar() {
   return (
     
  
-<nav class="bg-gray-200 shadow shadow-gray-300 w-200 px-4 md:px-auto">
+<nav class="bg-indigo-200 shadow shadow-gray-300 w-200 px-4 md:px-auto">
 	<div class="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
-
+ 
 		<div class="text-indigo-500 md:order-1">
 
 			{/* <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"

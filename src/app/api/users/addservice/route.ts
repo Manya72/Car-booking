@@ -2,6 +2,7 @@ import { NextRequest,NextResponse} from "next/server" //for adding service from 
 import service from '../../../../models/ServiceAvailability'
 import { connect } from '@/dbconfig/dbconfig';
 import Service from '@/models/ServiceAvailability';
+import User from "@/models/userModel";
 connect()
 import jwt from 'jsonwebtoken'
 export  async function POST(request:NextRequest,response:NextResponse) { 
@@ -41,9 +42,18 @@ export async function GET(request:NextRequest,response: NextResponse) {
     const token=request.cookies.get('token')?.value|| ''
     const data=jwt.verify(token,process.env.TOKEN_SECRET!)
     // Find services that have a date greater than or equal to the current date
-    const services = await Service.find({});
+    console.log("data ",data)
+    if(data.userType==='user'){
+      const services = await Service.find({});
+      return NextResponse.json(services);
+    }
+    else{
+      const services = await Service.find({carShopOwner:data.username});
+      return NextResponse.json(services);
+    }
+   
     // Return the filtered services
-    return NextResponse.json(services);
+ 
   } catch (error) {
     return NextResponse.json({ message: error });
   }

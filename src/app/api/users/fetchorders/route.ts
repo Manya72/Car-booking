@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken'
 import { hash } from "crypto";
 import HistoryA from '@/models/ServiceAvailability'
 import deletedService from '@/models/DeletedService'
+import { notifyDeletion } from "@/app/lib/notify";
+import User from "@/models/userModel";
 connect()
 
 export  async function GET(request:NextRequest,response:NextResponse) { //for the user dashboard
@@ -43,7 +45,9 @@ export async function POST(request:NextRequest,response:NextResponse){
   try {
     
     const reqbody=await request.json()
-    const { id } = reqbody;
+    const { id,username,reason } = reqbody;
+    const user1=await User.findOne({username:username})
+    console.log("heya reason",reason)
     if(id){
       const user = await History.find({_id:id});
     console.log("this is the response from the post fetchorders",id)
@@ -67,8 +71,10 @@ export async function POST(request:NextRequest,response:NextResponse){
     await newHistoryA.save();
     const newdeleteddata=new deletedService(deleteddata)
     await newdeleteddata.save()
-     await History.findByIdAndDelete({_id:id});
-    console.log('User added to HistoryA:', newHistoryA);
+    await History.findByIdAndDelete({_id:id});
+ 
+     const res=await notifyDeletion(user1.email,user[0].carShopOwner,user,reason)
+   
     }
 
    return NextResponse.json({message:"successfully updated"})

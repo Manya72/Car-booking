@@ -17,6 +17,8 @@ const COLORS = ['#23511E', '#a0aec0', '#e53e3e']; // Indigo, Gray, Red
 
 export default function userdashboard() {
   const [services, setServices] = useState<Service[]>([]);
+
+  const [services1, setServices1] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -35,7 +37,22 @@ export default function userdashboard() {
 
     fetchData();
   }, []);
+  useEffect(() => {
+    const fetchData1 = async () => {
+      try {
+        const response = await axios.get('/api/users/addservice');
+        const fetchedServices: Service[] = response.data;
+        // console.log("fetched for the new dashboard", fetchedServices);
+        setServices1(fetchedServices);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      }
+    };
 
+    fetchData1();
+  }, []);
+  console.log("service dvhdandv",services)
   const completedServices = services.filter(service => service.status === 'Done').length;
   const pendingServices = services.filter(service => service.status === 'Pending').length;
   const deletedServices = services.filter(service => service.status === 'Deleted').length;
@@ -47,7 +64,7 @@ export default function userdashboard() {
   ];
 
   const recentBookings = services.slice(0, 5);
-  const discounts = services.filter(service => service.discount);
+  const discounts = services1.filter(service => service.discount);
 
   if (loading) {
     return <div>Loading...</div>;
