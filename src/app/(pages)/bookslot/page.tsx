@@ -54,7 +54,9 @@ export default function BookSlot() {
             const response = await axios.post('/api/users/fetchHistory', selectedAvailability);
             const res = await axios.patch('/api/users/addservice', selectedAvailability);
             console.log("Booking successful:", response.data);
+          
             window.location.reload();
+            alert("Your slot has been successfully booked! Please check your mail for the details.");
         } catch (error) {
             console.error("Error booking slot:", error);
             // Handle booking error here

@@ -43,6 +43,7 @@ export default function Ownerhome() {
       try {
         const response = await axios.get('/api/users/fetchHistory');
         const fetchedServices = response.data;
+        console.log("fetched data",fetchedServices)
         setServices(fetchedServices);
         setLoading(false);
       } catch (error) {

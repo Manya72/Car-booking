@@ -27,7 +27,7 @@ function NavBar() {
   return (
     
  
-<nav class="bg-indigo-200 shadow shadow-gray-300 w-200 px-4 md:px-auto">
+<nav class="bg-gray-200 shadow shadow-gray-300 w-200 px-4 md:px-auto">
 	<div class="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
  
 		<div class="text-indigo-500 md:order-1">
@@ -42,6 +42,7 @@ function NavBar() {
 			<ul class="flex font-semibold justify-between">
                
 			<li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/')}`}>
+      <div className="absolute top-13 left-5 text-indigo-800 font-bold text-2xl z-50">CarWash</div>
               <Link href="/">Home</Link>
             </li>
             <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/aboutus')}`}>
@@ -55,9 +56,14 @@ function NavBar() {
             </li>
 			</ul>
 		</div>
-		<div class="order-2 md:order-3">
+    {/* <div className="absolute z-0 right-1 left-0 top-8 h-1/2 w-1/3 bg-indigo-200">
+              
+             
+            </div> */}
+            
+		<div class="order-2 md:order-3 z-10 ">
     {/* <button onClick={handlesignup} class="px-4 py-2 bg-indigo-700 hover:bg-indigo-500 text-gray-50 rounded-xl flex items-center gap-2"> */}
-    <div class="flex gap-2">
+    <div class="flex gap-2 ">
       <Link href="/signup" class="px-2 py-1 hover:text-indigo-400 text-black-50 rounded-lg">
         Signup
       </Link>
@@ -65,7 +71,7 @@ function NavBar() {
         Login
       </Link>
     </div>
-{/* </button> */}
+
 		</div>
 	</div>
 </nav>

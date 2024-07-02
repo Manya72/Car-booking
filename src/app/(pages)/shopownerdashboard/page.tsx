@@ -72,7 +72,7 @@ export default function OwnerDashboard() {
     setUsers(updatedUsers);
     setShowModal(false);
     try {
-      const response = await axios.patch('/api/users/updatestatus', { _id: selectedUserId, status: 'Done' });
+      const response = await axios.patch('/api/users/fetchorders', { _id: selectedUserId, status: 'Done' });
       console.log('Status updated successfully:', response.data);
     } catch (error) {
       console.error('Error updating status:', error);
@@ -154,6 +154,7 @@ export default function OwnerDashboard() {
                         className="text-indigo-600 hover:text-indigo-900"
                         onClick={() => {
                           setSelectedUserId(user._id);
+                          handleStatusChange()
                           setShowModal(true);
                         }}
                       >

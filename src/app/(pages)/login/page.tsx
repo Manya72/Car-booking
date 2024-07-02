@@ -44,7 +44,7 @@ export default function Login() {
       console.log("Login error:", error);
       setErrorMessage("Login failed. Please try again.");
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
