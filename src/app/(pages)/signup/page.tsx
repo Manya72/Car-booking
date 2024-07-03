@@ -17,7 +17,7 @@ export default function Signup() {
     ShopName:"",
     Address:"",
     Contact:"",
-    OwnerId:"",
+    // OwnerId:"",
     hours:""
   });
 
@@ -188,7 +188,7 @@ export default function Signup() {
                       />
                     </div>
                  
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                       <label htmlFor="OwnerId">Owner-Id</label>
                       <input
                         id="OwnerId"
@@ -198,7 +198,7 @@ export default function Signup() {
                         value={user.OwnerId}
                         onChange={(e) => setuser({ ...user, OwnerId: e.target.value })}
                       />
-                    </div>
+                    </div> */}
                     <div className="mb-4">
                       <label htmlFor="hours">Working hours</label>
                       <input

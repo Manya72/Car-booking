@@ -99,7 +99,7 @@ export async function notifyDeletion(email: string, carShopOwner: string, data: 
     html: `
       <div style="font-family: Arial, sans-serif; color: #333;">
         <p><strong>Dear User,</strong></p>
-        <p>Your service has been deleted by <strong>${carShopOwner}</strong> due to the following reason:</p>
+        <p>Your service has been Cancelled by <strong>${carShopOwner}</strong> due to the following reason:</p>
         <p style="color: red;"><strong>${reason}</strong></p>
         <p>Details about the booking:</p>
         <ul>
@@ -109,7 +109,7 @@ export async function notifyDeletion(email: string, carShopOwner: string, data: 
           <li><strong>End Time:</strong> ${data[0].endTime}</li>
         </ul>
         <br/>
-        <p>Thank you for using our service.</p>
+        <p>Thank you for Understanding.</p>
         <p><strong>Car Wash Team</strong></p>
       </div>
     `,

@@ -26,7 +26,8 @@ export async function GET(request:NextRequest,res:NextResponse){
                     endTime: slot.end,
                     location: shop.Address, // Assuming Address field in shopDetail is the location
                     date: formatDate(new Date()), // Example: Use current date or slot date from your data
-                    carShopOwner: shop.username, // Assuming email field in shopDetail is the car shop owner
+                    carShopOwner: shop.username,
+                    shopName:shop.ShopName // Assuming email field in shopDetail is the car shop owner
                 };
                 availabilities.push(availability);
             });

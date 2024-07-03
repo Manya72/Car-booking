@@ -54,7 +54,7 @@ export async function POST(request:NextRequest){
             Contact,
             Address,
             ShopName,
-            OwnerId,
+            // OwnerId,
             isApproved:false,
             username,
             slots:[{start:"",end:""}]

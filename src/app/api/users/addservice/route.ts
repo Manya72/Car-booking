@@ -3,6 +3,7 @@ import service from '../../../../models/ServiceAvailability'
 import { connect } from '@/dbconfig/dbconfig';
 import Service from '@/models/ServiceAvailability';
 import User from "@/models/userModel";
+import shopDetail from "@/models/shopdetails";
 connect()
 import jwt from 'jsonwebtoken'
 export  async function POST(request:NextRequest,response:NextResponse) { 
@@ -11,20 +12,24 @@ export  async function POST(request:NextRequest,response:NextResponse) {
   
     const token=request.cookies.get('token')?.value|| ''
     const data=jwt.verify(token,process.env.TOKEN_SECRET!)
+    const shop=await shopDetail.findOne({email:data.email})
    
     const newservice=new service(
       {
         location:reqBody.location,
+        shopName:shop.ShopName,
         startTime:reqBody.startTime,
         endTime:reqBody.endTime,
         date:reqBody.date,
         carShopOwner:data.username,
-        email:data.email
+        email:data.email,
+        
 
       }
     )
  
         const savedService=await newservice.save()
+        console.log("from add service----------****************",savedService)
         return NextResponse.json({message:"Service created successfully",success:true,savedService})
 
 

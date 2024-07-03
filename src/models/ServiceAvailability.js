@@ -23,6 +23,9 @@ const serviceschema =new mongoose.Schema({
         required:true
     },discount:{
         type:String
+    },
+    shopName:{
+        type:String
     }
 
 
