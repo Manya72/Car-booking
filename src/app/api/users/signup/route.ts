@@ -14,7 +14,7 @@ export async function POST(request:NextRequest){
         const reqBody=await request.json()
      
         const {email,password,username,userType,ShopName,Address,Contact,OwnerId}=reqBody
-
+        console.log("contacttttt ha",Contact)
         const user1 =await User.findOne({username})
 
         if(user1){
@@ -44,7 +44,9 @@ export async function POST(request:NextRequest){
             otp:otp,
             password: hashPassword,
             userType,
+            Contact:Contact
         })
+        console.log("userr created successfully",newUser)
        
 
         
@@ -55,6 +57,7 @@ export async function POST(request:NextRequest){
             Address,
             ShopName,
             // OwnerId,
+           
             isApproved:false,
             username,
             slots:[{start:"",end:""}]

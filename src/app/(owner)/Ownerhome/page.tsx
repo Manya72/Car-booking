@@ -96,7 +96,7 @@ fetchservices()
     </button>
     <br></br>
     <button className="bg-indigo-500 text-white p-4 mt-10 ml-20 rounded hover:bg-indigo-700 transition duration-300" onClick={()=>router.push('/shopownerdashboard')}>
-      Click Here to Manage Booked Services
+      Click Here to Manage Order History
     </button>
   </div>
           </div>

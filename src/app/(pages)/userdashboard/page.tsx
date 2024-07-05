@@ -60,7 +60,7 @@ export default function userdashboard() {
   const chartData = [
     { name: 'Completed', value: completedServices },
     { name: 'Pending', value: pendingServices },
-    { name: 'Deleted', value: deletedServices },
+    { name: 'Cancelled', value: deletedServices },
   ];
 
   const recentBookings = services.slice(0, 5);

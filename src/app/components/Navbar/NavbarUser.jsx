@@ -41,8 +41,8 @@ function NavbarUser	() {
             <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/bookslot')}`}>
               <Link href="/bookslot">Book A Slot</Link>
             </li>
-            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/profile')}`}>
-              <Link href="/profile">Profile</Link>
+            <li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/userprofile')}`}>
+              <Link href="/userprofile">Profile</Link>
             </li>
           </ul>
         </div>

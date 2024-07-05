@@ -20,7 +20,7 @@ console.log('Cron job scheduled to run daily at 12:00 AM.');
   try {
     
     if(path==='/dashboard' || path==='/bookslot' || path==='/users' || path==='/adminhome' ||
-      path==='/bookings' || path==='/userdashboard' ){
+      path==='/bookings' || path==='/userdashboard' || path==='/userprofile' ){
       decodedToken = await verifyAuth(token)
       if(decodedToken.userType==='carShopOwner'){
         return NextResponse.redirect(new URL('/Ownerhome',request.nextUrl))
@@ -42,7 +42,7 @@ console.log('Cron job scheduled to run daily at 12:00 AM.');
     }
 
     if(path==='/shopownerdashboard' || path==='/addslot' || path==='/dashboard' || path==='/bookslot' || path==='/bookslot'
-      || path==='/userdashboard' || path==='/Ownerhome'
+      || path==='/userdashboard' || path==='/Ownerhome' || path==='/userprofile'
      
     ){
   
@@ -112,6 +112,7 @@ matcher: [
   '/users',
   '/bookings',
   '/userdashboard',
-  '/Ownerhome'
+  '/Ownerhome',
+  '/userprofile'
 ]
 }

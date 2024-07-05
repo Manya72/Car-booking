@@ -34,6 +34,13 @@ userType: {
   {
     type:Number,
   },
+  Contact:{
+    type:Number,
+  },
+  password_reset_token:{
+    required:false,
+    type:String
+  },
 forgotPasswordtoken:String,
 forgotPasswordTokenExpiry:Date,
 verifyToken:String,

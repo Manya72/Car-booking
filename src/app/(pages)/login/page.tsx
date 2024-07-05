@@ -135,7 +135,7 @@ export default function Login() {
                     onChange={(e) => setUser({ ...user, password: e.target.value })}
                   />
                   <p className="text-sm mt-4">
-                    <Link href="/resetpassword" className="font-medium text-primary underline">
+                    <Link href="/forgotpassword" className="font-medium text-primary underline">
                       Forgot Password
                     </Link>
                   </p>
