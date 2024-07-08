@@ -9,13 +9,13 @@ import { notifyDeletion } from "@/app/lib/notify";
 import User from "@/models/userModel";
 connect()
 
-export  async function GET(request:NextRequest,response:NextResponse) { //for the user dashboard
+export  async function GET(request:NextRequest,response:NextResponse) { 
   try {
     const token=request.cookies.get('token')?.value|| ''
     const data=jwt.verify(token,process.env.TOKEN_SECRET!)
     
    const username=data.username
-    const userHistory=await History.find({})
+    // const userHistory=await User.find({})
 
    //got the username from the token and using that fetched from te DB
     const userHistory1=await History.find({carShopOwner:username})

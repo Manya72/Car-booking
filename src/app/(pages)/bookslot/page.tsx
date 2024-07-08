@@ -10,7 +10,8 @@ interface Availability {
     date: string;
     carShopOwner: string;
     discount: string;
-    shopName:string
+    shopName:string;
+    
 }
 
 export default function BookSlot() {

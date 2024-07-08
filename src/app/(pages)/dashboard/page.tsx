@@ -21,13 +21,13 @@ export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [review, setReview] = useState('');
+  const [filter, setFilter] = useState('all'); // New state for filtering
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/users/fetchHistory');
         const fetchedUsers: User[] = response.data;
-        console.log("this is the fetched users", fetchedUsers)
         setUsers(fetchedUsers);
         setLoading(false);
       } catch (error) {
@@ -64,14 +64,33 @@ export default function Dashboard() {
     return <div>Loading...</div>;
   }
 
+  const filteredUsers = users.filter(user => {
+    if (filter === 'all') return true;
+    if (filter === 'pending') return user.status === 'Pending';
+    if (filter === 'completed') return user.status !== 'Pending' && user.review !== '';
+    return false;
+  });
+
   return (
     <main className="bg-gray-100 min-h-screen">
       <NavbarUser />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8 text-center text-indigo-600">Manage Services</h1>
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-semibold">Total Booked Services: {users.length}</h1>
+          <select
+            className="p-2 border border-gray-300 rounded"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          >
+            <option value="all">All Services</option>
+            <option value="pending">Pending Services</option>
+            <option value="completed">Completed Services</option>
+          </select>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {users.length > 0 ? (
-            users.map((user) => (
+          {filteredUsers.length > 0 ? (
+            filteredUsers.map((user) => (
               <div key={user._id} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
                 <h2 className="text-xl font-semibold text-gray-800 mb-2">{moment(user.date).format('MMMM Do YYYY')}</h2>
                 <p className="text-gray-600"><span className="font-semibold text-gray-800">Start Time:</span> {user.startTime}</p>
@@ -81,7 +100,7 @@ export default function Dashboard() {
                 {user.review ? (
                   <p className="text-gray-600"><span className="font-semibold text-gray-800">Your Review:</span> {user.review}</p>
                 ) : user.status === "Pending" ? (
-                  <p className="text-gray-600"><span className="font-semibold text-gray-800">Status:</span> Pending Service</p>
+                  <p className="text-gray-800 font-semibold">Status: <span className="text-red-800">Pending Service</span></p>
                 ) : (
                   <div className="mt-auto self-left">
                     <button onClick={() => handleReviewClick(user._id)} className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">

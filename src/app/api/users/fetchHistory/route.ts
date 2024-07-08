@@ -36,6 +36,7 @@ export  async function POST(request:NextRequest,response:NextResponse) {
    const userdata=await User.findOne({username:reqbody.carShopOwner})
     const token=request.cookies.get('token')?.value|| ''
     const data=jwt.verify(token,process.env.TOKEN_SECRET!)
+    const customerdata = await User.findOne({username: data.username})
    
 
       const res=await sendnotification(data.email,"You have succesfully booked Slot",data.username,reqbody)
@@ -53,10 +54,11 @@ export  async function POST(request:NextRequest,response:NextResponse) {
     startTime:reqbody.startTime,
     location:reqbody.location,                                  
     endTime:reqbody.endTime,
-
+    ContactUser:customerdata.Contact,
 
 
    })
+   console.log('iwoifgwoeihfihwopghpwigheirhg', customerdata.Contact)
    const SavedHistory=await newhistory.save()
    return NextResponse.json({message:"Saved Successfully",SavedHistory})
 

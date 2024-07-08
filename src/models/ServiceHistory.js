@@ -37,6 +37,10 @@ const userSchema =new mongoose.Schema({
  review: {
     type: String,
     default: '',
+  },
+  ContactUser: {
+    type: Number,
+    
   }
 
 })

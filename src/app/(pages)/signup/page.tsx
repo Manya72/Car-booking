@@ -31,6 +31,10 @@ export default function Signup() {
   const isValidEmailFormat = (email:any) => {
     return validate(email);
   };
+  const isValidPassword = (password: string) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
   const onSignup = async () => {
     if (user.password !== user.password_confirmation) {
       setErrorMessage("Passwords do not match");
@@ -43,6 +47,10 @@ export default function Signup() {
     }
     if (!isValidEmailFormat(email)) {
       setErrorMessage("Invalid email format. Please enter a valid email.");
+      return;
+    }
+    if(!isValidPassword(password)){
+      setErrorMessage("Password must contain at least one uppercase letter, one lowercase letter, one special character, and one number.");
       return;
     }
     try {

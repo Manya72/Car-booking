@@ -12,6 +12,7 @@ interface User {
   status: string;
   _id: string;
   review: string;
+  ContactUser: number;
 }
 
 export default function OwnerDashboard() {
@@ -130,6 +131,7 @@ export default function OwnerDashboard() {
               <p className="text-gray-700"><span className="font-bold">Start Time:</span> {user.startTime}</p>
               <p className="text-gray-700"><span className="font-bold">End Time:</span> {user.endTime}</p>
               <p className="text-gray-700"><span className="font-bold">Username:</span> {user.UserName}</p>
+              <p className="text-gray-700"><span className="font-bold">Phone number:</span> {user.ContactUser}</p>
             </div>
             <div className="mt-4 flex justify-between items-center">
               {user.status !== 'Done' ? (

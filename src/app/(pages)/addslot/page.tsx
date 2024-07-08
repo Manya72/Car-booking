@@ -127,21 +127,23 @@ export default function ManageTimings() {
         return `${hours}:${minutes} ${suffix}`;
     };
 
-    const handleStartTimeChange = (e:any) => {
+    const parseTime = (time: string) => {
+        const [hoursMinutes, modifier] = time.split(' ');
+        let [hours, minutes] = hoursMinutes.split(':').map(Number);
+        if (modifier === 'PM' && hours !== 12) {
+            hours += 12;
+        } else if (modifier === 'AM' && hours === 12) {
+            hours = 0;
+        }
+        return { hours, minutes };
+    };
+  
+    const handleStartTimeChange = (e: any) => {
         const startTime = e.target.value;
-        const [hours, minutes] = startTime.split(':');
-        let endHours = parseInt(hours) + 1;
-        let suffix = 'AM';
-        if (endHours >= 24) {
-            endHours = endHours % 24;
-        }
-        if (endHours >= 12) {
-            suffix = 'PM';
-            if (endHours > 12) {
-                endHours = endHours % 12;
-            }
-        }
-        const endTime = `${String(endHours).padStart(2, '0')}:${minutes}`;
+        const startDateTime = new Date(`2000-01-01T${startTime}`);
+        const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000); // Add 1 hour
+        const endTime = `${endDateTime.getHours().toString().padStart(2, '0')}:${endDateTime.getMinutes().toString().padStart(2, '0')}`;
+
         setAvailabilityDetails({
             ...AvailabilityDetails,
             startTime,
