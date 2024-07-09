@@ -56,7 +56,7 @@ function NavbarOwner() {
         <div className="order-2 md:order-3">
           <button
             onClick={() => setLogoutModal(true)}
-            className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2"
+            className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-md flex items-center gap-2"
           >
             <span>Logout</span>
           </button>

@@ -38,7 +38,7 @@ function NavBar() {
 					d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
 			</svg> */}
 		</div>
-		<div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
+		<div class="text-gray-500 order-3 w-full md:w-auto md:order-2 z-20">
 			<ul class="flex font-semibold justify-between">
                
 			<li className={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/')}`}>
@@ -61,13 +61,13 @@ function NavBar() {
              
             </div> */}
             
-		<div class="order-2 md:order-3 z-10 ">
+		<div class="order-2 md:order-3 z-10 font-semibold  ">
     {/* <button onClick={handlesignup} class="px-4 py-2 bg-indigo-700 hover:bg-indigo-500 text-gray-50 rounded-xl flex items-center gap-2"> */}
     <div class="flex gap-2 ">
-      <Link href="/signup" class="px-2 py-1 hover:text-indigo-400 text-black-50 rounded-lg">
+      <Link href="/signup" class={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/signup')}`}>
         Signup
       </Link>
-      <Link href="/login" class="px-2 py-1 hover:text-indigo-400 text-black-50 rounded-lg">
+      <Link href="/login" class={`md:px-4 md:py-2 hover:text-indigo-400 ${isActive('/login')}`}>
         Login
       </Link>
     </div>
